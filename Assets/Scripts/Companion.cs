@@ -11,14 +11,6 @@ public enum AIMode
     Follow,
 }
 
-public enum CompanionState
-{ 
-    Neutral,
-    Jumping,
-    Attacking
-}
-
-
 public class Companion : MonoBehaviour
 {
     public MovementData data;
@@ -26,8 +18,8 @@ public class Companion : MonoBehaviour
     public GameObject player;
     public Platform platform;
     public GameObject target;
+    public Animator anim;
     private AIMode mode = AIMode.Follow; // Mostly used for UI
-    private CompanionState state = CompanionState.Neutral;
     private float followOffset = 2.5f;
     private float jumpdistance = 5f;
     private float lastOnGroundTime = 1;
@@ -43,11 +35,14 @@ public class Companion : MonoBehaviour
             if (dist > followOffset)
             {
                 Move(Vector2.right);
+                GetComponent<SpriteRenderer>().flipX = false;
             }
             else if (dist < -followOffset)
             {
                 Move(Vector2.left);
+                GetComponent<SpriteRenderer>().flipX = true;
             }
+            anim.SetBool("Walking", true);
         }
     }
 
@@ -138,23 +133,37 @@ public class Companion : MonoBehaviour
 
     public void Attack(Vector2 dir)
     {
-        state = CompanionState.Attacking;
+        anim.SetTrigger("Attack");
     }
 
     void Start()
     {
         GameObject player = GameObject.FindWithTag("Player");
+        anim = GetComponent<Animator>();
         target = player;
     }
 
     void Update()
     {
         // Play Animations
+        // Check if on air or not
+        if (rb.velocity.x == 0)
+        {
+            anim.SetBool("Walking", false);
+        }
+        if (isGrounded() == true)
+        {
+            anim.SetBool("InAir", false);
+        }
+        else
+        {
+            anim.SetBool("InAir", true);
+        }
     }
 
     void FixedUpdate()
     {
-        if (state == CompanionState.Neutral && target != null)
+        if (target != null)
         {
             // Move towards target when possible
             MoveTowards();

@@ -6,8 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 public class CompAttackRange : MonoBehaviour
 {
     public Companion companion;
-    // Start is called before the first frame update
-    void OnCollisionEnter(Collision col)
+    void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Enemy")
         {
