@@ -6,6 +6,7 @@ public class Movement : MonoBehaviour
 {
 	public MovementData data;
     public Rigidbody2D rb;
+	public BoxCollider2D floorCollider;
 	private float lastOnGroundTime = 1;
 	public LayerMask groundLayer;
 	private float jumpingTime = 0;
@@ -26,16 +27,16 @@ public class Movement : MonoBehaviour
     }
 
     public bool isGrounded() {
-		return rb.IsTouchingLayers(groundLayer);	
+		return floorCollider.IsTouchingLayers(LayerMask.GetMask("Floor"));	
 	}
 
     public void Move(Vector2 moveInput) {
         // Movement - force applied is calculated by runForce * the difference in velocity between the current and max
-		if(lastOnGroundTime > 0.1f) {
-			rb.AddForce(new Vector2(data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+		if(lastOnGroundTime <= 0.1f) {
+			rb.AddForce(new Vector2(moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 		}
 		else {
-			rb.AddForce(new Vector2(moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+			rb.AddForce(new Vector2(data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 		}
 
 		// Reduce speed when past the limit and running on ground (bhopping will preserve momentum)
@@ -50,9 +51,6 @@ public class Movement : MonoBehaviour
     }
 
 	public void Jump() {
-		isJumping = true;
-		jumpingTime = 0;
-		rb.gravityScale = data.gravityScaleJumping;
 		rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity);
 	}
 }

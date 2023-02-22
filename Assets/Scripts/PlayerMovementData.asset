@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 026d22e49f600e84e8dc79b7a808c865, type: 3}
+  m_Script: {fileID: 11500000, guid: 540865404ee873e48a1e6962cebb5105, type: 3}
   m_Name: PlayerMovementData
   m_EditorClassIdentifier: 
   runMaxSpeed: 15
   runForce: 7
   runDeccelForce: 14
-  jumpVelocity: 10
+  jumpVelocity: 15
   jumpTime: 0.2
-  wallJumpMult: 1
-  wallJumpTime: 0.1
+  wallJumpMult: 0.5
+  wallJumpTime: 0.4
   gravityScaleJumping: 1
   gravityScale: 5
   coyoteTime: 0.1
-  jumpBuffer: 0.1
-  airAccelMult: 0.496
+  jumpBuffer: 0.05
+  airAccelMult: 0.5
