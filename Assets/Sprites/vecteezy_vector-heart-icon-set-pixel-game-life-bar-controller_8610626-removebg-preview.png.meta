@@ -1,0 +1,399 @@
+fileFormatVersion: 2
+guid: a55509217b44cf643b0414782a43832a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_0
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 390
+        width: 102
+        height: 92
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 436059d2736ee2a4bb8e9d51851d0d7f
+      internalID: 413678980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_1
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 390
+        width: 101
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a9f315a0818e6242a96e2b647d10fb4
+      internalID: -855142602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_2
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 390
+        width: 101
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ceb08df55afcaab4e8b04d6296a0af8f
+      internalID: 1581380582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_3
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 271
+        width: 97
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47f74c0f0573aed47adb36a692d5f3d4
+      internalID: 1754160398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_4
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 271
+        width: 96
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c67b5c3da1a5ad4bae3e3aabe8e08fd
+      internalID: 1820650618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_5
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 271
+        width: 97
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a37cea675ac66fe4d9dd8eabb62089d9
+      internalID: -588726379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_6
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 154
+        width: 100
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58a0f04945573df4fb3907272232c8ea
+      internalID: 1633489524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_7
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 154
+        width: 100
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c0b06bb919e26342aaabab767fdb90d
+      internalID: 1707135524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_8
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 154
+        width: 100
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac070759b7e92b2448360fa60452f7b9
+      internalID: 675609005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_9
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 22
+        width: 102
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3483a71bd09cd84cafa3347c028eacc
+      internalID: 1970496114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_10
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 22
+        width: 102
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dc1aabf6e8e83947ad2b978442efbdd
+      internalID: 1552980476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_11
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 22
+        width: 102
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1edfe082ffc7fc64dab0389c4b03cfca
+      internalID: 1427389871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_11: 1427389871
+      vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_3: 1754160398
+      vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_10: 1552980476
+      vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_7: 1707135524
+      vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_8: 675609005
+      vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_6: 1633489524
+      vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_4: 1820650618
+      vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_9: 1970496114
+      vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_2: 1581380582
+      vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_5: -588726379
+      vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_1: -855142602
+      vecteezy_vector-heart-icon-set-pixel-game-life-bar-controller_8610626-removebg-preview_0: 413678980
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
