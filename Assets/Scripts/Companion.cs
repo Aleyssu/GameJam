@@ -11,43 +11,53 @@ public enum AIMode
     Follow,
 }
 
+public enum CompanionState
+{ 
+    Neutral,
+    Jumping,
+    Attacking
+}
+
+
 public class Companion : MonoBehaviour
 {
-    GameObject player;
-    Platform platform;
-    GameObject target;
-    public AIMode mode; // Mostly used for UI
-    float followOffset;
-    float speed;
-    bool isAttacking;
+    public MovementData data;
+    public Rigidbody2D rb;
+    public GameObject player;
+    public Platform platform;
+    public GameObject target;
+    private AIMode mode = AIMode.Follow; // Mostly used for UI
+    private CompanionState state = CompanionState.Neutral;
+    private float followOffset = 2.5f;
+    private float jumpdistance = 5f;
+    private float lastOnGroundTime = 1;
+    public LayerMask groundLayer;
 
 
-    private float MoveTowards()
+    private void MoveTowards()
     {
         // The y axis is ignored for convience sake
         float dist = target.transform.position.x - gameObject.transform.position.x; // positive if target is to the right and negative if target is to the left
-        float newPosition = gameObject.transform.position.x;
         if (target != null)
         {
             if (dist > followOffset)
             {
-                newPosition += speed;
+                Move(Vector2.right);
             }
             else if (dist < -followOffset)
             {
-                newPosition -= speed;
+                Move(Vector2.left);
             }
         }
-        return newPosition;
     }
 
     private void DetectEnemy()
     {
         if (platform.objectStanding.Count != 0)
         {
-            GameObject closestEnemy = platform.objectStanding[0];
-            float dist = Mathf.Abs(closestEnemy.transform.position.x - gameObject.transform.position.x);
-            for (int i = 1; i < platform.objectStanding.Count; i++)
+            GameObject closestEnemy = null;
+            float dist = Mathf.Infinity;
+            for (int i = 0; i < platform.objectStanding.Count; i++)
             {
                 float objDist = Mathf.Abs(platform.objectStanding[i].transform.position.x - gameObject.transform.position.x);
                 if (dist > objDist)
@@ -56,13 +66,79 @@ public class Companion : MonoBehaviour
                     dist = objDist;
                 }
             }
-            target = closestEnemy;
+            if (closestEnemy != null)
+            {
+                target = closestEnemy;
+            }
+            else
+            {
+                target = null;
+            }
+        }
+    }
+    public bool isGrounded()
+    {
+        return rb.IsTouchingLayers(groundLayer);
+    }
+
+    public void Move(Vector2 moveInput)
+    {
+        // Movement - force applied is calculated by runForce * the difference in velocity between the current and max
+        if (lastOnGroundTime > 0.1f)
+        {
+            rb.AddForce(new Vector2(data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+        }
+        else
+        {
+            rb.AddForce(new Vector2(moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+        }
+
+        // Reduce speed when past the limit and running on ground (bhopping will preserve momentum)
+        if (Mathf.Abs(rb.velocity.x) > data.runMaxSpeed && lastOnGroundTime == 0)
+        {
+            rb.AddForce(new Vector2(-moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+        }
+
+        // Decelerate rapidly when not holding down movement keys
+        if (Mathf.Abs(moveInput.x) < 0.01f)
+        {
+            rb.AddForce(new Vector2(-data.runDeccelForce * rb.velocity.x, 0));
         }
     }
 
-    private void Attack()
+    public void Jump()
     {
-        // Call the attack animation
+        if (lastOnGroundTime < data.coyoteTime)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity);
+            lastOnGroundTime = data.coyoteTime;
+        }
+    }
+
+    void OnStay(InputValue value)
+    {
+        mode = AIMode.Stay;
+        target = gameObject;
+    }
+
+    void OnFollow(InputValue value)
+    {
+        mode = AIMode.Follow;
+        target = player;
+    }
+
+    void OnHunt(InputValue value)
+    {
+        mode = AIMode.Hunt;
+        if (platform != null)
+        {
+            DetectEnemy();
+        }
+    }
+
+    public void Attack(Vector2 dir)
+    {
+        state = CompanionState.Attacking;
     }
 
     void Start()
@@ -73,38 +149,15 @@ public class Companion : MonoBehaviour
 
     void Update()
     {
-        if (isAttacking == false)
+        // Play Animations
+    }
+
+    void FixedUpdate()
+    {
+        if (state == CompanionState.Neutral && target != null)
         {
-            // Move towards target and when input is set, change mode
+            // Move towards target when possible
             MoveTowards();
-        }
-        // Check for any nearby enemies and see if there are any enemies to swing at
-        GameObject detectEnemies;
-        bool enemyInRange = false;
-        // Insert enemyinRange script
-        if (enemyInRange == true)
-        {
-            isAttacking = true;
-            Attack();
-        }
-        // Priority: Stay > Follow > Hunt (in the event multiple button are pressed for some reason)
-        if (false)
-        {
-            mode = AIMode.Stay;
-            target = gameObject;
-        }
-        else if (false)
-        {
-            mode = AIMode.Follow;
-            target = player;
-        }
-        else if (false)
-        {
-            mode = AIMode.Hunt;
-            if (platform != null)
-            {
-                DetectEnemy();
-            }
         }
     }
 
@@ -122,10 +175,13 @@ public class Companion : MonoBehaviour
 
     private void OnCollisionExit(Collision col)
     {
-        platform = null;
-        if (mode == AIMode.Hunt)
+        if (col.gameObject.GetComponent<Platform>() == true)
         {
-            target = null;
+            platform = null;
+            if (mode == AIMode.Hunt)
+            {
+                target = null;
+            }
         }
     }
 }

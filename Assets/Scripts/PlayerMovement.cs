@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
 			rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity);
 			lastSinceJumpPress = data.jumpBuffer;
 			lastOnGroundTime = data.coyoteTime;
-		}
+        }
 		moveInput.x = Input.GetAxisRaw("Horizontal");
     }
 
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 		else {
 			rb.AddForce(new Vector2(moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
-		}
+        }
 
 		// Reduce speed when past the limit and running on ground (bhopping will preserve momentum)
 		if(Mathf.Abs(rb.velocity.x) > data.runMaxSpeed && lastOnGroundTime == 0) {
