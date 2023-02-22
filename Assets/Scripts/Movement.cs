@@ -24,7 +24,12 @@ public class Movement : MonoBehaviour
         // Insert your code below
 		
         // Jump function call example
+		Jump();
     }
+
+	private void FixedUpdate() {
+		Move(Vector2.right);
+	}
 
     public bool isGrounded() {
 		return floorCollider.IsTouchingLayers(LayerMask.GetMask("Floor"));	
@@ -51,6 +56,8 @@ public class Movement : MonoBehaviour
     }
 
 	public void Jump() {
-		rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity);
+		if(lastOnGroundTime < data.coyoteTime) {
+			rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity);
+		}
 	}
 }
