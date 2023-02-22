@@ -1,8 +1,8 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "MovementData", fileName = "ScriptableObjects/MovementData")]
+[CreateAssetMenu(menuName = "PlayerMovementData", fileName = "ScriptableObjects/PlayerMovementData")]
 
-public class MovementData : ScriptableObject
+public class PlayerMovementData : ScriptableObject
 {
 	[Header("Run")]
 	public float runMaxSpeed = 15; // max running speed
@@ -11,6 +11,8 @@ public class MovementData : ScriptableObject
 	[Header("Jump")]
 	public float jumpVelocity = 15; // velocity applied when jumping
 	public float jumpTime = 0.2f; // maximum time player can hold jump
+	public float wallJumpMult = 0.5f; // multiplier applied to jumpVelocity to determine wall jump strength
+	public float wallJumpTime = 0.4f; // time before player regains horizontal movement control after wall jumpinh
 	public float gravityScaleJumping = 1; // gravity scale when jumping
 	public float gravityScale = 5; // gravity scale when falling
 	public float coyoteTime = 0.1f; // time after leaving a platform when the player can still jump

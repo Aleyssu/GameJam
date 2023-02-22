@@ -8,6 +8,8 @@ public class Movement : MonoBehaviour
     public Rigidbody2D rb;
 	private float lastOnGroundTime = 1;
 	public LayerMask groundLayer;
+	private float jumpingTime = 0;
+	private bool isJumping = false;
 
 	private void Update()
 	{	
@@ -47,10 +49,10 @@ public class Movement : MonoBehaviour
 		}
     }
 
-    public void Jump() {
-        if(lastOnGroundTime < data.coyoteTime) {
-			rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity);
-			lastOnGroundTime = data.coyoteTime;
-		}
-    }
+	public void Jump() {
+		isJumping = true;
+		jumpingTime = 0;
+		rb.gravityScale = data.gravityScaleJumping;
+		rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity);
+	}
 }
