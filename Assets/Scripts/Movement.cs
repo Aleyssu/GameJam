@@ -1,41 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Movement : MonoBehaviour
 {
 	public MovementData data;
     public Rigidbody2D rb;
 	private float lastOnGroundTime = 1;
-	private float lastSinceJumpPress = 0;
-	private Vector2 moveInput;
 	public LayerMask groundLayer;
+
+    private Vector2 testDir = Vector2.right;
 
 	private void Update()
 	{	
-		// Jumping with input buffering and coyote time
+		// For coyote time
         lastOnGroundTime += Time.deltaTime;
-		lastSinceJumpPress += Time.deltaTime;
 		
 		if(isGrounded()) {
 			lastOnGroundTime = 0;
 		}
-		if(Input.GetButtonDown("Jump")) {
-			lastSinceJumpPress = 0;
-		}
 
-		if(lastOnGroundTime < data.coyoteTime && lastSinceJumpPress < data.jumpBuffer) {
-			rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity);
-			lastSinceJumpPress = data.jumpBuffer;
-			lastOnGroundTime = data.coyoteTime;
-		}
-		moveInput.x = Input.GetAxisRaw("Horizontal");
+        // Insert your code below
+		
+        // Jump function call example
+        Jump();
     }
 
     private void FixedUpdate()
-	{
-		// Movement - force applied is calculated by runForce * the difference in velocity between the current and max
+	{   
+        // Insert your code below
+
+        // Movement function call example (KEEP CALLS UNDER FixedUpdate()!!!)
+        Move(testDir);
+		if(rb.position.x > 11) {
+            testDir = Vector2.left;
+        }
+        else if(rb.position.x < -11) {
+            testDir = Vector2.right;
+        }
+    }
+
+    public bool isGrounded() {
+		return rb.IsTouchingLayers(groundLayer);	
+	}
+
+    public void Move(Vector2 moveInput) {
+        // Movement - force applied is calculated by runForce * the difference in velocity between the current and max
 		if(lastOnGroundTime > 0.1f) {
 			rb.AddForce(new Vector2(data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 		}
@@ -54,7 +64,10 @@ public class PlayerMovement : MonoBehaviour
 		}
     }
 
-	public bool isGrounded() {
-		return rb.IsTouchingLayers(groundLayer);	
-	}
+    public void Jump() {
+        if(lastOnGroundTime < data.coyoteTime) {
+			rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity);
+			lastOnGroundTime = data.coyoteTime;
+		}
+    }
 }
