@@ -11,8 +11,6 @@ public class Movement : MonoBehaviour
 	private float jumpingTime = 0;
 	private bool isJumping = false;
 
-    private Vector2 testDir = Vector2.right;
-
 	private void Update()
 	{	
 		// For coyote time
@@ -25,21 +23,6 @@ public class Movement : MonoBehaviour
         // Insert your code below
 		
         // Jump function call example
-        Jump();
-    }
-
-    private void FixedUpdate()
-	{   
-        // Insert your code below
-
-        // Movement function call example (KEEP CALLS UNDER FixedUpdate()!!!)
-        Move(testDir);
-		if(rb.position.x > 11) {
-            testDir = Vector2.left;
-        }
-        else if(rb.position.x < -11) {
-            testDir = Vector2.right;
-        }
     }
 
     public bool isGrounded() {

@@ -1,0 +1,74 @@
+{
+    "name": "CompanionControls",
+    "maps": [
+        {
+            "name": "CompanionDefault",
+            "id": "0cf135d4-8d6b-420f-a65b-f14231bc4f95",
+            "actions": [
+                {
+                    "name": "Stay",
+                    "type": "Button",
+                    "id": "dd23eaa3-3303-4471-b17f-3bfb054140a0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Follow",
+                    "type": "Button",
+                    "id": "102b11f4-99d2-4114-a860-88550cfc8814",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Hunt",
+                    "type": "Button",
+                    "id": "4c8ba835-9e66-4046-8806-6438b3eb6373",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3cecd9ca-03e8-41b2-9d61-55a514d087ad",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Stay",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d458b190-e546-446a-97e9-d27883c2dbf2",
+                    "path": "<Keyboard>/n",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Follow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ef6e5f40-f3f5-4c5a-948b-d848247d68e6",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hunt",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
