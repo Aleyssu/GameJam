@@ -24,6 +24,7 @@ public class Companion : MonoBehaviour
     private float jumpdistance = 5f;
     private float lastOnGroundTime = 1;
     public LayerMask groundLayer;
+    public BoxCollider2D floorCollider;
 
 
     private void MoveTowards()
@@ -73,7 +74,7 @@ public class Companion : MonoBehaviour
     }
     public bool isGrounded()
     {
-        return rb.IsTouchingLayers(groundLayer);
+        return floorCollider.IsTouchingLayers(LayerMask.GetMask("Floor"));	
     }
 
     public void Move(Vector2 moveInput)
