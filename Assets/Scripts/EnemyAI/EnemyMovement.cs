@@ -57,13 +57,15 @@ public class EnemyMovement : MonoBehaviour
                 // transform.position = Vector2.MoveTowards(transform.position, roamPosition, speed * Time.deltaTime);
                 
                 // reached position
-                if (Vector2.Distance(transform.position, roamPosition) <= 0.1f)
+                if (Vector2.Distance(transform.position, roamPosition) <= 0.2f)
                 {
+                    Debug.Log("Entering coroutine");
                     StartCoroutine(StopMovement());
                     state = State.Idle;
                 }
                 else
                 {
+                    // movement animation here
                     Move((roamPosition - rb.position).normalized);
                 }
 
@@ -82,6 +84,7 @@ public class EnemyMovement : MonoBehaviour
                 }
                 else
                 {
+                    // movement animation here
                     Move((new Vector2(player.position.x, transform.position.y) - rb.position).normalized);
                     // transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.position.x, transform.position.y), speed * Time.deltaTime);
                 }
@@ -95,19 +98,21 @@ public class EnemyMovement : MonoBehaviour
                 
                 //  transform.position = Vector2.MoveTowards(transform.position, start, speed * Time.deltaTime);
 
-                if (Vector2.Distance(transform.position, start) <= 0.1f)
+                if (Vector2.Distance(transform.position, start) <= 0.2f)
                 {
                     StartCoroutine(StopMovement());
                     state = State.Idle;
                 }
                 else
                 {
+                    // movement animation here
                     Move((start - rb.position).normalized);
                 }
 
                 break;
 
             case State.Idle:
+                // idle animation
                 FindTarget();
                 break;
 
@@ -117,6 +122,8 @@ public class EnemyMovement : MonoBehaviour
 
     private Vector2 ToRoamPosition()
     {
+
+        Debug.Log("getting new position");
         // random x direction;
         if (lastDir == 0)
         {
@@ -141,12 +148,12 @@ public class EnemyMovement : MonoBehaviour
         if (curDir == 1)
         {
             lastDir = 1;
-            return new Vector2(curDir * Random.Range(0, endOfPlatformRight.position.x - transform.position.x), transform.position.y);
+            return new Vector2(Random.Range(transform.position.x + 2f, endOfPlatformRight.position.x), transform.position.y);
         }
         else
         {
             lastDir = -1;
-            return new Vector2(curDir * Random.Range(0, transform.position.x - endOfPlatformLeft.position.x), transform.position.y);
+            return new Vector2(Random.Range(endOfPlatformLeft.position.x, transform.position.x - 2f), transform.position.y);
         }
         
     }
