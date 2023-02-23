@@ -7,6 +7,15 @@ public class EnemyMovement : MonoBehaviour
     private int lastDir = 0;
     private float curDir;
     [SerializeField] private float speed = 1f;
+    [SerializeField] private float attackRange = 1.2f;
+
+    private enum State
+    {
+        Patrol,
+        Chase
+    }
+
+    private State state;
 
     [SerializeField]
     private Transform endOfPlatformLeft;
@@ -14,6 +23,8 @@ public class EnemyMovement : MonoBehaviour
     private Transform endOfPlatformRight;
     [SerializeField]
     private Transform player;
+
+    private EnemyAttack enemyCombat;
 
     private Vector2 start;
     private Vector2 roamPosition;
@@ -24,7 +35,10 @@ public class EnemyMovement : MonoBehaviour
     public Rigidbody2D rb;
     public LayerMask groundLayer;
 
-
+    private void Awake()
+    {
+        state = State.Patrol;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -32,18 +46,37 @@ public class EnemyMovement : MonoBehaviour
         roamPosition = ToRoamPosition();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Vector2.Distance(transform.position, roamPosition) <= 0.2f)
-        {
-            roamPosition = ToRoamPosition();
-        }
-    }
-
     void FixedUpdate() {
-        Move((roamPosition - rb.position).normalized);
-        // transform.position = Vector2.MoveTowards(transform.position, roamPosition, speed * Time.deltaTime);
+        switch (state)
+        {
+            default:
+            case State.Patrol:
+                // transform.position = Vector2.MoveTowards(transform.position, roamPosition, speed * Time.deltaTime);
+                Move((roamPosition - rb.position).normalized);
+                // reached position
+                if (Vector2.Distance(transform.position, roamPosition) <= 0.2f)
+                {
+                    roamPosition = ToRoamPosition();
+                }
+
+
+                FindTarget();
+                break;
+
+            case State.Chase:
+                if (Vector2.Distance(transform.position, player.position) < attackRange)
+                {
+                    enemyCombat.Attack();
+                }
+                else
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.position.x, transform.position.y), speed * Time.deltaTime);
+                }
+
+                break;
+
+        }
+        
     }
 
     private Vector2 ToRoamPosition()
@@ -67,14 +100,22 @@ public class EnemyMovement : MonoBehaviour
         if (curDir >= 0)
         {
             lastDir = -1;
-            return start + randomDir * Random.Range(2f, Vector2.Distance(transform.position, endOfPlatformRight.position));
+            return start + randomDir * Random.Range(0f, Vector2.Distance(transform.position, endOfPlatformRight.position));
         }
         else
         {
             lastDir = 1;
-            return start + randomDir * Random.Range(2f, Vector2.Distance(transform.position, endOfPlatformLeft.position));
+            return start + randomDir * Random.Range(0f, Vector2.Distance(transform.position, endOfPlatformLeft.position));
         }
         
+    }
+
+    private void FindTarget()
+    {
+        if (Mathf.Abs(transform.position.x - player.position.x) < 4f && Mathf.Abs(transform.position.y - player.position.y) < 0.5f)
+        {
+            state = State.Chase;
+        }
     }
 
     public bool isGrounded() {
@@ -101,11 +142,6 @@ public class EnemyMovement : MonoBehaviour
 		if(Mathf.Abs(moveInput.x) < 0.01f) {
 			rb.AddForce(new Vector2(-data.runDeccelForce * rb.velocity.x, 0));
 		}
-    }
-
-    private void FindTarget()
-    {
-        // to be implemented
     }
 
 }

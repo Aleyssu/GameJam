@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026d22e49f600e84e8dc79b7a808c865, type: 3}
   m_Name: EnemyMovementData
   m_EditorClassIdentifier: 
-  runMaxSpeed: 15
+  runMaxSpeed: 5
   runForce: 7
-  runDeccelForce: 14
+  runDeccelForce: 10
   jumpVelocity: 15
   jumpTime: 0.2
   gravityScaleJumping: 1
