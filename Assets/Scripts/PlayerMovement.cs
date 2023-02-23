@@ -10,13 +10,14 @@ public class PlayerMovement : MonoBehaviour
 	public BoxCollider2D floorCollider;
 	public BoxCollider2D wallColliderRight;
 	public BoxCollider2D wallColliderLeft;
-	private Animator anim;
+	public Animator anim;
 	private float lastOnGroundTime = 1;
 	private float lastSinceJumpPress = 0;
 	private float jumpingTime = 0;
 	private bool isJumping = false;
 	private bool wallJumping = false;
 	private short wallJumpingDirection = 1;
+	private bool facingRight = true;
 	private Vector2 moveInput;
 	public LayerMask groundLayer;
 
@@ -27,6 +28,13 @@ public class PlayerMovement : MonoBehaviour
 		lastSinceJumpPress += Time.deltaTime;
 		jumpingTime += Time.deltaTime;
 		
+		if(facingRight) {
+			rb.transform.localRotation = Quaternion.Euler(0, 0, 0);
+		}
+		else {
+			rb.transform.localRotation = Quaternion.Euler(0, 180, 0);
+		}
+
 		if(isGrounded()) {
 			lastOnGroundTime = 0;
 			anim.SetBool("InAir", false);
@@ -37,8 +45,6 @@ public class PlayerMovement : MonoBehaviour
         }
 		if(Input.GetButtonDown("Jump")) {
 			lastSinceJumpPress = 0;
-			anim.SetTrigger("Jump");
-            anim.SetBool("InAir", true);
         }
 		if(isJumping && ((!Input.GetButton("Jump")) || jumpingTime > data.jumpTime)) {
 			isJumping = false;
@@ -50,13 +56,13 @@ public class PlayerMovement : MonoBehaviour
 		if(wallJumping && jumpingTime > data.wallJumpTime) {
 			wallJumping = false;
 			anim.ResetTrigger("Jump");
-
         }
 
 		// Regular jump
 		if(lastSinceJumpPress < data.jumpBuffer) {
 			if (lastOnGroundTime < data.coyoteTime)
 			{
+				anim.SetBool("NextToWall", false);
 				Jump();
 				lastSinceJumpPress = data.jumpBuffer;
 				lastOnGroundTime = data.coyoteTime;
@@ -66,45 +72,54 @@ public class PlayerMovement : MonoBehaviour
 			{
 				wallJumping = true;
 				wallJumpingDirection = -1;
-				Jump();
 				anim.SetBool("NextToWall", true);
+				Jump();
 			}
 			else if (wallColliderLeft.IsTouchingLayers(LayerMask.GetMask("Floor")))
 			{
 				wallJumping = true;
 				wallJumpingDirection = 1;
-				Jump();
 				anim.SetBool("NextToWall", true);
+				Jump();
 			}
-			else
-			{
-                anim.SetBool("NextToWall", false);
-            }
         }
 		moveInput.x = Input.GetAxisRaw("Horizontal");
 		// Ignore jumping until jump animations for player are released
 		if (moveInput.x != 0 )
 		{
-			anim.SetBool("Running", true);
+			anim.SetBool("isRunning", true);
 		}
 		else
 		{
-            anim.SetBool("Running", false);
+            anim.SetBool("isRunning", false);
         }
     }
 
     private void FixedUpdate()
 	{
 		// Movement - force applied is calculated by runForce * the difference in velocity between the current and max
-		if(lastOnGroundTime <= 0.1f) {
-			rb.AddForce(new Vector2(moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+		if(Mathf.Abs(rb.velocity.x) < data.runMaxSpeed || (rb.velocity.x * moveInput.x) < 0) {
+			if(lastOnGroundTime <= 0.1f) {
+				rb.AddForce(new Vector2(moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+			}
+			else if(wallJumping) {
+				rb.AddForce(new Vector2(data.wallJumpAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+			}
+			// Air accel multiplier
+			else {
+				rb.AddForce(new Vector2(data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+			}
 		}
-		else if(!wallJumping) {
-			rb.AddForce(new Vector2(data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+		if(moveInput.x > 0) {
+			facingRight = true;
+		} 
+		else if(moveInput.x < 0) {
+			facingRight = false;
 		}
 
 		// Reduce speed when past the limit and running on ground (bhopping will preserve momentum)
 		if(Mathf.Abs(rb.velocity.x) > data.runMaxSpeed && lastOnGroundTime == 0) {
+			Debug.Log(new Vector2(-moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 			rb.AddForce(new Vector2(-moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 		}
 
@@ -115,6 +130,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 	public void Jump() {
+		anim.SetTrigger("Jump");
 		isJumping = true;
 		jumpingTime = 0;
 		lastSinceJumpPress = data.jumpBuffer;
