@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 857783539146644033}
   - component: {fileID: 2112331062}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Skeleton_Unarmed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 857783539146644059}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.22, y: -4.15, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5702471967635906017}
@@ -103,9 +103,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 2
+  animationTime: 1
   endOfPlatformLeft: {fileID: 0}
   endOfPlatformRight: {fileID: 0}
-  player: {fileID: 0}
+  player: {fileID: 2528177791621953688, guid: 67c7050159414844b8925fd20082a997, type: 3}
+  enemyCombat: {fileID: 0}
   anim: {fileID: 2112331062}
   data: {fileID: 11400000, guid: c31a07678ec56c546a9d0477f2626308, type: 2}
   rb: {fileID: 857783539146644032}
@@ -179,6 +181,7 @@ MonoBehaviour:
   hittableLayers:
     serializedVersion: 2
     m_Bits: 192
+  anim: {fileID: 2112331062}
 --- !u!95 &2112331062
 Animator:
   serializedVersion: 5
