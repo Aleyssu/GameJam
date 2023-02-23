@@ -16,8 +16,9 @@ public class PlayerMovement : MonoBehaviour
 	private float jumpingTime = 0;
 	private bool isJumping = false;
 	private bool wallJumping = false;
-	private short wallJumpingDirection = 1;
-	private bool facingRight = true;
+	private int wallJumpingDirection = 1;
+	private int facingDirection = 1;
+	private float jumpMult = 1;
 	private Vector2 moveInput;
 	public LayerMask groundLayer;
 
@@ -27,14 +28,8 @@ public class PlayerMovement : MonoBehaviour
         lastOnGroundTime += Time.deltaTime;
 		lastSinceJumpPress += Time.deltaTime;
 		jumpingTime += Time.deltaTime;
-		
-		if(facingRight) {
-			rb.transform.localRotation = Quaternion.Euler(0, 0, 0);
-		}
-		else {
-			rb.transform.localRotation = Quaternion.Euler(0, 180, 0);
-		}
 
+		// Checking if player on ground
 		if(isGrounded()) {
 			lastOnGroundTime = 0;
 			anim.SetBool("InAir", false);
@@ -43,19 +38,21 @@ public class PlayerMovement : MonoBehaviour
 		{
             anim.SetBool("InAir", true);
         }
+
+		// Check for jump input
 		if(Input.GetButtonDown("Jump")) {
 			lastSinceJumpPress = 0;
         }
+		// Increase gravity so player falls when releasing jump
 		if(isJumping && ((!Input.GetButton("Jump")) || jumpingTime > data.jumpTime)) {
 			isJumping = false;
-			rb.gravityScale = data.gravityScale;
 			anim.ResetTrigger("Jump");
+			rb.gravityScale = data.gravityScale;
 		}
 
 		// For controlling acceleration while wall jumping
 		if(wallJumping && jumpingTime > data.wallJumpTime) {
 			wallJumping = false;
-			anim.ResetTrigger("Jump");
         }
 
 		// Regular jump
@@ -68,17 +65,19 @@ public class PlayerMovement : MonoBehaviour
 				lastOnGroundTime = data.coyoteTime;
 			}
 			// Wall jump
-			else if (wallColliderRight.IsTouchingLayers(LayerMask.GetMask("Floor")))
+			else if (wallColliderRight.IsTouchingLayers(LayerMask.GetMask("Floor")) || wallColliderRight.IsTouchingLayers(LayerMask.GetMask("Companion")))
 			{
+				anim.ResetTrigger("Jump");
 				wallJumping = true;
-				wallJumpingDirection = -1;
+				wallJumpingDirection = -1 * facingDirection;
 				anim.SetBool("NextToWall", true);
 				Jump();
 			}
-			else if (wallColliderLeft.IsTouchingLayers(LayerMask.GetMask("Floor")))
+			else if (wallColliderLeft.IsTouchingLayers(LayerMask.GetMask("Floor")) || wallColliderLeft.IsTouchingLayers(LayerMask.GetMask("Companion")))
 			{
+				anim.ResetTrigger("Jump");
 				wallJumping = true;
-				wallJumpingDirection = 1;
+				wallJumpingDirection = 1 * facingDirection;
 				anim.SetBool("NextToWall", true);
 				Jump();
 			}
@@ -110,11 +109,14 @@ public class PlayerMovement : MonoBehaviour
 				rb.AddForce(new Vector2(data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 			}
 		}
-		if(moveInput.x > 0) {
-			facingRight = true;
+		// Flipping facing direction
+		if(moveInput.x > 0 && !wallJumping) {
+			facingDirection = 1;
+			rb.transform.localRotation = Quaternion.Euler(0, 0, 0);
 		} 
-		else if(moveInput.x < 0) {
-			facingRight = false;
+		else if(moveInput.x < 0 && !wallJumping) {
+			facingDirection = -1;
+			rb.transform.localRotation = Quaternion.Euler(0, 180, 0);
 		}
 
 		// Reduce speed when past the limit and running on ground (bhopping will preserve momentum)
@@ -135,15 +137,29 @@ public class PlayerMovement : MonoBehaviour
 		jumpingTime = 0;
 		lastSinceJumpPress = data.jumpBuffer;
 		rb.gravityScale = data.gravityScaleJumping;
-		if(wallJumping) {
-			rb.velocity = new Vector2(data.jumpVelocity * data.wallJumpMult * wallJumpingDirection, data.jumpVelocity);
+		if(rb.IsTouchingLayers(LayerMask.GetMask("Companion"))) {
+			jumpMult = data.companionJumpBoostMult;
 		}
 		else {
-			rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity);
+			jumpMult = 1;
+		}
+
+		if(wallJumping) {
+			rb.velocity = new Vector2(data.jumpVelocity * data.wallJumpMult * wallJumpingDirection * jumpMult, data.jumpVelocity * jumpMult);
+			facingDirection = wallJumpingDirection;
+			if(facingDirection > 0) {
+				rb.transform.localRotation = Quaternion.Euler(0, 0, 0);
+			}
+			else {
+				rb.transform.localRotation = Quaternion.Euler(0, 180, 0);
+			}
+		}
+		else {
+			rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity * jumpMult);
 		}
 	}
 
 	public bool isGrounded() {
-		return floorCollider.IsTouchingLayers(LayerMask.GetMask("Floor"));
+		return floorCollider.IsTouchingLayers(LayerMask.GetMask("Floor")) || floorCollider.IsTouchingLayers(LayerMask.GetMask("Companion"));
 	}
 }

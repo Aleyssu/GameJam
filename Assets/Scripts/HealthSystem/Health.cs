@@ -92,7 +92,9 @@ public class Health
             else
             {
                 // damage current heart and break
+                Debug.Log(heart.GetStates());
                 heart.Damage(damageAmount);
+                Debug.Log(heart.GetStates());
                 break;
             }
         }

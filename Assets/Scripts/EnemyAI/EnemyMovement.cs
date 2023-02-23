@@ -5,35 +5,37 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     private int lastDir = 0;
-    private float curDir;
-    [SerializeField] private float speed = 1f;
-    [SerializeField] private float attackRange = 1.2f;
+    private int curDir;
+    [SerializeField] private float attackRange = 0.4f;
+    [SerializeField] private float animationTime = 1f;
 
     private enum State
     {
         Patrol,
-        Chase
+        Chase,
+        Attacking,
+        Reset,
+        Idle
     }
 
     private State state;
 
-    [SerializeField]
-    private Transform endOfPlatformLeft;
-    [SerializeField]
-    private Transform endOfPlatformRight;
-    [SerializeField]
-    private Transform player;
+    [SerializeField] private Transform endOfPlatformLeft;
+    [SerializeField] private Transform endOfPlatformRight;
+    [SerializeField] private Transform player;
 
+    [SerializeField]
     private EnemyAttack enemyCombat;
 
     private Vector2 start;
     private Vector2 roamPosition;
 
     // For movement
-
+    [SerializeField] private Animator anim;
     public MovementData data;
     public Rigidbody2D rb;
     public LayerMask groundLayer;
+    private int facingDirection;
 
     private void Awake()
     {
@@ -46,66 +48,122 @@ public class EnemyMovement : MonoBehaviour
         roamPosition = ToRoamPosition();
     }
 
+    void Update() {
+        if(facingDirection > 0) {
+            rb.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+        else {
+            rb.transform.localRotation = Quaternion.Euler(0, 180, 0);
+        }
+    }
+
     void FixedUpdate() {
         switch (state)
         {
             default:
             case State.Patrol:
                 // transform.position = Vector2.MoveTowards(transform.position, roamPosition, speed * Time.deltaTime);
-                Move((roamPosition - rb.position).normalized);
+                
                 // reached position
-                if (Vector2.Distance(transform.position, roamPosition) <= 0.2f)
+                if (Vector2.Distance(transform.position, roamPosition) <= 0.3f)
                 {
-                    roamPosition = ToRoamPosition();
+                    Debug.Log("Entering coroutine");
+                    StartCoroutine(StopMovement(0));
+                    state = State.Idle;
                 }
-
+                else
+                {
+                    // movement animation here
+                    Move((roamPosition - rb.position).normalized);
+                }
 
                 FindTarget();
                 break;
 
             case State.Chase:
-                if (Vector2.Distance(transform.position, player.position) < attackRange)
+                if (player.position.x > endOfPlatformRight.position.x || player.position.x < endOfPlatformLeft.position.x)
+                {
+                    state = State.Reset;
+                }
+                else if (Vector2.Distance(transform.position, player.position) < attackRange)
                 {
                     enemyCombat.Attack();
+                    state = State.Attacking;
                 }
                 else
                 {
-                    transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.position.x, transform.position.y), speed * Time.deltaTime);
+                    // movement animation here
+                    Move((new Vector2(player.position.x, transform.position.y) - rb.position).normalized);
+                    // transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.position.x, transform.position.y), speed * Time.deltaTime);
                 }
 
                 break;
 
+            case State.Attacking:
+                StartCoroutine(StopMovement(1));
+                break;
+
+            case State.Reset:
+                
+                //  transform.position = Vector2.MoveTowards(transform.position, start, speed * Time.deltaTime);
+
+                if (Vector2.Distance(transform.position, start) <= 0.3f)
+                {
+                    StartCoroutine(StopMovement(1));
+                    state = State.Idle;
+                }
+                else
+                {
+                    // movement animation here
+                    Move((start - rb.position).normalized);
+                }
+
+                break;
+
+            case State.Idle:
+                // idle animation
+                anim.SetBool("Walking", false);
+
+                FindTarget();
+                break;
         }
         
     }
 
     private Vector2 ToRoamPosition()
     {
+
+        Debug.Log("getting new position");
         // random x direction;
         if (lastDir == 0)
         {
-            curDir = Random.Range(-1f, 1f);
+            if (Random.Range(-1f, 1f) > 0)
+            {
+                curDir = 1;
+            }
+            else
+            {
+                curDir = -1;
+            }    
         }
         else if (lastDir == 1)
         {
-            curDir = -1f;
+            curDir = -1;
         }
         else
         {
-            curDir = 1f;
+            curDir = 1;
         }
 
-        Vector2 randomDir = new Vector2(curDir, 0).normalized;
-
-        if (curDir >= 0)
-        {
-            lastDir = -1;
-            return start + randomDir * Random.Range(0f, Vector2.Distance(transform.position, endOfPlatformRight.position));
-        }
-        else
+        if (curDir == 1)
         {
             lastDir = 1;
-            return start + randomDir * Random.Range(0f, Vector2.Distance(transform.position, endOfPlatformLeft.position));
+            return new Vector2(Random.Range(transform.position.x + 2f, endOfPlatformRight.position.x), transform.position.y);
+        }
+        else
+        {
+            lastDir = -1;
+            return new Vector2(Random.Range(endOfPlatformLeft.position.x, transform.position.x - 2f), transform.position.y);
         }
         
     }
@@ -118,11 +176,36 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    private IEnumerator StopMovement(int type)
+    {
+        if (type == 0)
+        {
+            yield return new WaitForSeconds(2f);
+            Debug.Log("new position");
+            state = State.Patrol;
+            roamPosition = ToRoamPosition();
+        }
+        else if (type == 1)
+        {
+            yield return new WaitForSeconds(animationTime);
+            state = State.Chase;
+        }
+    }
+
     public bool isGrounded() {
 		return rb.IsTouchingLayers(LayerMask.GetMask("Floor"));	
 	}
 
     public void Move(Vector2 moveInput) {
+        // Visuals
+        if(moveInput.x > 0) {
+            facingDirection = 1;
+        }
+        else {
+            facingDirection = -1;
+        }
+        anim.SetBool("Walking", true);
+
         // Movement - force applied is calculated by runForce * the difference in velocity between the current and max
 		if(Mathf.Abs(rb.velocity.x) < data.runMaxSpeed || (rb.velocity.x * moveInput.x) < 0) {
 			if(isGrounded()) {

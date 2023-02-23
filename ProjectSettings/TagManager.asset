@@ -12,7 +12,8 @@ TagManager:
   - Floor
   - Water
   - UI
-  - Background
+  - Player
+  - Companion
   - 
   - 
   - 
