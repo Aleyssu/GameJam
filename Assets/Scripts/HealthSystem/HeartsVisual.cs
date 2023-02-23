@@ -10,7 +10,7 @@ public class HeartsVisual : MonoBehaviour
     [SerializeField] private Sprite emptyHeartSprite;
 
     private List<HeartImage> heartImageList;
-    private Health healthSystem;
+    public Health healthSystem;
 
     public class HeartImage
     {

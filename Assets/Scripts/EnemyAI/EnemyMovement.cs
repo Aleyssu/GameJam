@@ -6,7 +6,8 @@ public class EnemyMovement : MonoBehaviour
 {
     private int lastDir = 0;
     private int curDir;
-    [SerializeField] private float attackRange = 1.2f;
+    [SerializeField] private float attackRange = 0.4f;
+    [SerializeField] private float animationTime = 1f;
 
     private enum State
     {
@@ -23,6 +24,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Transform endOfPlatformRight;
     [SerializeField] private Transform player;
 
+    [SerializeField]
     private EnemyAttack enemyCombat;
 
     private Vector2 start;
@@ -63,10 +65,10 @@ public class EnemyMovement : MonoBehaviour
                 // transform.position = Vector2.MoveTowards(transform.position, roamPosition, speed * Time.deltaTime);
                 
                 // reached position
-                if (Vector2.Distance(transform.position, roamPosition) <= 0.2f)
+                if (Vector2.Distance(transform.position, roamPosition) <= 0.3f)
                 {
                     Debug.Log("Entering coroutine");
-                    StartCoroutine(StopMovement());
+                    StartCoroutine(StopMovement(0));
                     state = State.Idle;
                 }
                 else
@@ -98,15 +100,16 @@ public class EnemyMovement : MonoBehaviour
                 break;
 
             case State.Attacking:
+                StartCoroutine(StopMovement(1));
                 break;
 
             case State.Reset:
                 
                 //  transform.position = Vector2.MoveTowards(transform.position, start, speed * Time.deltaTime);
 
-                if (Vector2.Distance(transform.position, start) <= 0.2f)
+                if (Vector2.Distance(transform.position, start) <= 0.3f)
                 {
-                    StartCoroutine(StopMovement());
+                    StartCoroutine(StopMovement(1));
                     state = State.Idle;
                 }
                 else
@@ -173,12 +176,20 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private IEnumerator StopMovement()
+    private IEnumerator StopMovement(int type)
     {
-        yield return new WaitForSeconds(2f);
-        Debug.Log("new position");
-        state = State.Patrol;
-        roamPosition = ToRoamPosition();
+        if (type == 0)
+        {
+            yield return new WaitForSeconds(2f);
+            Debug.Log("new position");
+            state = State.Patrol;
+            roamPosition = ToRoamPosition();
+        }
+        else if (type == 1)
+        {
+            yield return new WaitForSeconds(animationTime);
+            state = State.Chase;
+        }
     }
 
     public bool isGrounded() {
