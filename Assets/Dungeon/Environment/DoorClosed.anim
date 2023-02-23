@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerLand
+  m_Name: DoorClosed
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,9 +20,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -991008714, guid: b6172d76d87146f429c555338a0fec28, type: 3}
+      value: {fileID: 1734861241, guid: e3b0ded468f4e5d4e83eed547d5664ea, type: 3}
     - time: 0.083333336
-      value: {fileID: -197397076, guid: b6172d76d87146f429c555338a0fec28, type: 3}
+      value: {fileID: -1978762033, guid: e3b0ded468f4e5d4e83eed547d5664ea, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -42,8 +42,8 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -991008714, guid: b6172d76d87146f429c555338a0fec28, type: 3}
-    - {fileID: -197397076, guid: b6172d76d87146f429c555338a0fec28, type: 3}
+    - {fileID: 1734861241, guid: e3b0ded468f4e5d4e83eed547d5664ea, type: 3}
+    - {fileID: -1978762033, guid: e3b0ded468f4e5d4e83eed547d5664ea, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
