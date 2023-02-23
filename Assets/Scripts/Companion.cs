@@ -80,13 +80,15 @@ public class Companion : MonoBehaviour
     public void Move(Vector2 moveInput)
     {
         // Movement - force applied is calculated by runForce * the difference in velocity between the current and max
-        if (lastOnGroundTime > 0.1f)
-        {
-            rb.AddForce(new Vector2(data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
-        }
-        else
-        {
-            rb.AddForce(new Vector2(moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+        if(Mathf.Abs(rb.velocity.x) < data.runMaxSpeed || (rb.velocity.x * moveInput.x) < 0) {
+            if (lastOnGroundTime > 0.1f)
+            {
+                rb.AddForce(new Vector2(data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+            }
+            else
+            {
+                rb.AddForce(new Vector2(moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+            }
         }
 
         // Reduce speed when past the limit and running on ground (bhopping will preserve momentum)
