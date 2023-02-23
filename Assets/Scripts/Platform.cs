@@ -6,7 +6,7 @@ public class Platform : MonoBehaviour
 {
     public List<GameObject> objectStanding = new List<GameObject>();
 
-    void OnCollisionEnter(Collision col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Entity")
         {
@@ -14,7 +14,7 @@ public class Platform : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision col)
+    private void OnCollisionExit2D(Collision2D col)
     {
         for (int i = 0; i < objectStanding.Count; i++)
         {

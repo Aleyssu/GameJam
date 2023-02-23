@@ -173,7 +173,7 @@ public class Companion : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.GetComponent<Platform>() == true)
         {
@@ -185,7 +185,7 @@ public class Companion : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision col)
+    private void OnCollisionExit2D(Collision2D col)
     {
         if (col.gameObject.GetComponent<Platform>() == true)
         {
