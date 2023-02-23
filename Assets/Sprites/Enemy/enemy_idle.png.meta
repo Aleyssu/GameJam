@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b6172d76d87146f429c555338a0fec28
+guid: c4534964c706a0c498d8242e7b29ebf1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -101,29 +101,17 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jump_0
+      name: enemy_idle_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 11
-        width: 20
-        height: 24
+        x: 20
+        y: 16
+        width: 22
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 151231e1240b2ae48bd2b0507df67555
-      internalID: 1794448440
+      spriteID: a565b4a67356aca4a8f49cce7802f3a1
+      internalID: 195610984
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jump_1
+      name: enemy_idle_1
       rect:
         serializedVersion: 2
-        x: 75
-        y: 11
-        width: 20
-        height: 22
+        x: 83
+        y: 16
+        width: 24
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89702e7be6615904688e5ada508c6072
-      internalID: 1401640829
+      spriteID: 2a6e886d42ebf384d8efb4fdad728ed5
+      internalID: 1195551701
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jump_2
+      name: enemy_idle_2
       rect:
         serializedVersion: 2
-        x: 127
-        y: 13
-        width: 19
-        height: 27
+        x: 148
+        y: 16
+        width: 24
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 140d1584e7d84364fba27cb6e36e5389
-      internalID: -991008714
+      spriteID: b6bae2666c36ae8458a466262ec98787
+      internalID: 988464178
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jump_3
+      name: enemy_idle_3
       rect:
         serializedVersion: 2
-        x: 174
-        y: 19
-        width: 21
-        height: 23
+        x: 213
+        y: 16
+        width: 22
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36270639d54c1b043be8c5761059cf22
-      internalID: -197397076
+      spriteID: 529c627330f006b4a977c24d2f6f814b
+      internalID: -1436836590
       vertices: []
       indices: 
       edges: []
@@ -211,10 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      jump_2: -991008714
-      jump_0: 1794448440
-      jump_1: 1401640829
-      jump_3: -197397076
+      enemy_idle_2: 988464178
+      enemy_idle_0: 195610984
+      enemy_idle_3: -1436836590
+      enemy_idle_1: 1195551701
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540865404ee873e48a1e6962cebb5105, type: 3}
   m_Name: PlayerMovementData
   m_EditorClassIdentifier: 
-  runMaxSpeed: 10
+  runMaxSpeed: 15
   runForce: 8
   runDeccelForce: 14
-  jumpVelocity: 12.3
+  crouchedMult: 0.5
+  jumpVelocity: 15
   jumpTime: 0.2
   wallJumpMult: 0.5
   wallJumpAccelMult: 0.076
   wallJumpTime: 0.4
+  companionJumpBoostMult: 2
   gravityScaleJumping: 1
-  gravityScale: 5
+  gravityScale: 10
   coyoteTime: 0.1
   jumpBuffer: 0.07
   airAccelMult: 0.504
