@@ -6,7 +6,6 @@ public class EnemyMovement : MonoBehaviour
 {
     private int lastDir = 0;
     private int curDir;
-    [SerializeField] private float speed = 1f;
     [SerializeField] private float attackRange = 1.2f;
 
     private enum State
@@ -20,12 +19,9 @@ public class EnemyMovement : MonoBehaviour
 
     private State state;
 
-    [SerializeField]
-    private Transform endOfPlatformLeft;
-    [SerializeField]
-    private Transform endOfPlatformRight;
-    [SerializeField]
-    private Transform player;
+    [SerializeField] private Transform endOfPlatformLeft;
+    [SerializeField] private Transform endOfPlatformRight;
+    [SerializeField] private Transform player;
 
     private EnemyAttack enemyCombat;
 
@@ -33,10 +29,11 @@ public class EnemyMovement : MonoBehaviour
     private Vector2 roamPosition;
 
     // For movement
-
+    [SerializeField] private Animator anim;
     public MovementData data;
     public Rigidbody2D rb;
     public LayerMask groundLayer;
+    private int facingDirection;
 
     private void Awake()
     {
@@ -47,6 +44,15 @@ public class EnemyMovement : MonoBehaviour
     {
         start = transform.position;
         roamPosition = ToRoamPosition();
+    }
+
+    void Update() {
+        if(facingDirection > 0) {
+            rb.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+        else {
+            rb.transform.localRotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 
     void FixedUpdate() {
@@ -113,9 +119,10 @@ public class EnemyMovement : MonoBehaviour
 
             case State.Idle:
                 // idle animation
+                anim.SetBool("Walking", false);
+
                 FindTarget();
                 break;
-
         }
         
     }
@@ -179,6 +186,15 @@ public class EnemyMovement : MonoBehaviour
 	}
 
     public void Move(Vector2 moveInput) {
+        // Visuals
+        if(moveInput.x > 0) {
+            facingDirection = 1;
+        }
+        else {
+            facingDirection = -1;
+        }
+        anim.SetBool("Walking", true);
+
         // Movement - force applied is calculated by runForce * the difference in velocity between the current and max
 		if(Mathf.Abs(rb.velocity.x) < data.runMaxSpeed || (rb.velocity.x * moveInput.x) < 0) {
 			if(isGrounded()) {

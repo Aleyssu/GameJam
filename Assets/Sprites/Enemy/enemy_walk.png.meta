@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 88dcea2ccd7bef34c90e9af479c29f17
+guid: 25c8d66c01d63c04a923e15225a0fe73
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -44,7 +44,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 30
@@ -101,29 +101,17 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: die_0
+      name: enemy_walk_0
       rect:
         serializedVersion: 2
-        x: 36
-        y: 21
+        x: 20
+        y: 16
         width: 21
-        height: 24
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a3dd741664a45a74e970da980314b1fc
-      internalID: 616712514
+      spriteID: 073a624097ac49f4181c05eca7e0e573
+      internalID: -843861282
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: die_1
+      name: enemy_walk_1
       rect:
         serializedVersion: 2
-        x: 87
-        y: 21
-        width: 18
-        height: 24
+        x: 84
+        y: 16
+        width: 21
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a81a9356de7f744f8adf2838ad3f621
-      internalID: 1022034524
+      spriteID: 3cbefe64361bedc40823365bb37d758c
+      internalID: 425988127
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: die_2
+      name: enemy_walk_2
       rect:
         serializedVersion: 2
-        x: 135
-        y: 21
-        width: 19
-        height: 24
+        x: 148
+        y: 16
+        width: 21
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6cfedbc748052e24a9dc391c59b0822c
-      internalID: 1287441197
+      spriteID: 5a323a6f5683ede49aa0babe81494690
+      internalID: -750874399
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: die_3
+      name: enemy_walk_3
       rect:
         serializedVersion: 2
-        x: 186
-        y: 21
-        width: 20
-        height: 22
+        x: 212
+        y: 16
+        width: 21
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +182,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e3724e0fcce3ef49a99e112d18dc81f
-      internalID: -859717655
+      spriteID: e845b541ffe7d24449915b6afa662f0e
+      internalID: 825467266
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: die_4
+      name: enemy_walk_4
       rect:
         serializedVersion: 2
-        x: 238
-        y: 21
-        width: 17
-        height: 18
+        x: 276
+        y: 16
+        width: 21
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +203,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e443fd2e8fef4344848300d01eb5c4e
-      internalID: -1771151699
+      spriteID: d031148bb3f8a474d840a7051ab29eb6
+      internalID: 566871322
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: die_5
+      name: enemy_walk_5
       rect:
         serializedVersion: 2
-        x: 291
-        y: 21
-        width: 14
-        height: 17
+        x: 340
+        y: 16
+        width: 21
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,20 +224,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0da336ea216f9f84b8bc0838e0a71482
-      internalID: 318511187
+      spriteID: fdbed04f23764c54da2943b538fcdf28
+      internalID: 33678275
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: die_6
+      name: enemy_walk_6
       rect:
         serializedVersion: 2
-        x: 338
-        y: 21
-        width: 17
-        height: 18
+        x: 404
+        y: 16
+        width: 21
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,8 +245,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 851388a5a45f1b1418111886f5aa719a
-      internalID: 1183229776
+      spriteID: ac9b0050638fc39448b2cfad583a468e
+      internalID: 1532556645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_walk_7
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 16
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 337826aa09bb96941a12771555e98146
+      internalID: -1077258009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_walk_8
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 16
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 423356cd59c1347468d937216728c6aa
+      internalID: -1043175111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_walk_9
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 16
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3493fd7499f25d447acba3d612cf20a1
+      internalID: -133769876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_walk_10
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 16
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c8ac66049738234a8389b3e5ace8f20
+      internalID: -761553178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_walk_11
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 16
+        width: 22
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74f43b4c9d56b634e99fa6135bede2bc
+      internalID: 1075134657
       vertices: []
       indices: 
       edges: []
@@ -274,13 +367,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      die_4: -1771151699
-      die_0: 616712514
-      die_5: 318511187
-      die_6: 1183229776
-      die_2: 1287441197
-      die_3: -859717655
-      die_1: 1022034524
+      enemy_walk_2: -750874399
+      enemy_walk_9: -133769876
+      enemy_walk_6: 1532556645
+      enemy_walk_4: 566871322
+      enemy_walk_10: -761553178
+      enemy_walk_11: 1075134657
+      enemy_walk_7: -1077258009
+      enemy_walk_1: 425988127
+      enemy_walk_5: 33678275
+      enemy_walk_0: -843861282
+      enemy_walk_3: 825467266
+      enemy_walk_8: -1043175111
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
