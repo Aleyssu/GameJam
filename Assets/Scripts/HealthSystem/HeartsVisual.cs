@@ -110,10 +110,10 @@ public class HeartsVisual : MonoBehaviour
         GameObject heartGameObject = new GameObject("Heart", typeof(Image));
 
         // set up transform
-        heartGameObject.transform.parent = transform;
+        heartGameObject.transform.SetParent(transform);
         heartGameObject.transform.localPosition = Vector3.zero;
         heartGameObject.GetComponent<RectTransform>().anchoredPosition = anchoredPosition;
-        heartGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(25, 25);
+        heartGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(32, 32);
 
         // set heart sprite
         Image heartImageUI = heartGameObject.GetComponent<Image>();
