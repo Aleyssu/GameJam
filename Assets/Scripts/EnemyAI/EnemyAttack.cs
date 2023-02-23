@@ -12,6 +12,9 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] private Transform attackPoint;
     [SerializeField] private GameObject playerHealthSystem;
     public LayerMask hittableLayers;
+    
+    // Animation
+    [SerializeField] private Animator anim; 
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +33,7 @@ public class EnemyAttack : MonoBehaviour
         if (canAttack)
         {
             // trigger attack animation here
+            anim.SetBool("Attacking", true);
 
             Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, hittableLayers);
             bool playerDamaged = false;
@@ -43,6 +47,7 @@ public class EnemyAttack : MonoBehaviour
                 }
             }
 
+            // anim.ResetTrigger();
             canAttack = false;
             StartCoroutine(DelayAttack());
         }

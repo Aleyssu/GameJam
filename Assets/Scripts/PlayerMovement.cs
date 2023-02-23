@@ -28,14 +28,6 @@ public class PlayerMovement : MonoBehaviour
         lastOnGroundTime += Time.deltaTime;
 		lastSinceJumpPress += Time.deltaTime;
 		jumpingTime += Time.deltaTime;
-		
-		// Flipping facing direction
-		if(facingDirection > 0) {
-			rb.transform.localRotation = Quaternion.Euler(0, 0, 0);
-		}
-		else {
-			rb.transform.localRotation = Quaternion.Euler(0, 180, 0);
-		}
 
 		// Checking if player on ground
 		if(isGrounded()) {
@@ -117,11 +109,14 @@ public class PlayerMovement : MonoBehaviour
 				rb.AddForce(new Vector2(data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 			}
 		}
-		if(moveInput.x > 0) {
+		// Flipping facing direction
+		if(moveInput.x > 0 && !wallJumping) {
 			facingDirection = 1;
+			rb.transform.localRotation = Quaternion.Euler(0, 0, 0);
 		} 
-		else if(moveInput.x < 0) {
+		else if(moveInput.x < 0 && !wallJumping) {
 			facingDirection = -1;
+			rb.transform.localRotation = Quaternion.Euler(0, 180, 0);
 		}
 
 		// Reduce speed when past the limit and running on ground (bhopping will preserve momentum)
@@ -151,6 +146,13 @@ public class PlayerMovement : MonoBehaviour
 
 		if(wallJumping) {
 			rb.velocity = new Vector2(data.jumpVelocity * data.wallJumpMult * wallJumpingDirection * jumpMult, data.jumpVelocity * jumpMult);
+			facingDirection = wallJumpingDirection;
+			if(facingDirection > 0) {
+				rb.transform.localRotation = Quaternion.Euler(0, 0, 0);
+			}
+			else {
+				rb.transform.localRotation = Quaternion.Euler(0, 180, 0);
+			}
 		}
 		else {
 			rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity * jumpMult);
