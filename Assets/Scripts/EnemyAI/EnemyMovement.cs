@@ -5,14 +5,17 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     private int lastDir = 0;
-    private float curDir;
+    private int curDir;
     [SerializeField] private float speed = 1f;
     [SerializeField] private float attackRange = 1.2f;
 
     private enum State
     {
         Patrol,
-        Chase
+        Chase,
+        Attacking,
+        Reset,
+        Idle
     }
 
     private State state;
@@ -52,27 +55,60 @@ public class EnemyMovement : MonoBehaviour
             default:
             case State.Patrol:
                 // transform.position = Vector2.MoveTowards(transform.position, roamPosition, speed * Time.deltaTime);
-                Move((roamPosition - rb.position).normalized);
+                
                 // reached position
-                if (Vector2.Distance(transform.position, roamPosition) <= 0.2f)
+                if (Vector2.Distance(transform.position, roamPosition) <= 0.1f)
                 {
-                    roamPosition = ToRoamPosition();
+                    StartCoroutine(StopMovement());
+                    state = State.Idle;
                 }
-
+                else
+                {
+                    Move((roamPosition - rb.position).normalized);
+                }
 
                 FindTarget();
                 break;
 
             case State.Chase:
-                if (Vector2.Distance(transform.position, player.position) < attackRange)
+                if (player.position.x > endOfPlatformRight.position.x || player.position.x < endOfPlatformLeft.position.x)
+                {
+                    state = State.Reset;
+                }
+                else if (Vector2.Distance(transform.position, player.position) < attackRange)
                 {
                     enemyCombat.Attack();
+                    state = State.Attacking;
                 }
                 else
                 {
-                    transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.position.x, transform.position.y), speed * Time.deltaTime);
+                    Move((new Vector2(player.position.x, transform.position.y) - rb.position).normalized);
+                    // transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.position.x, transform.position.y), speed * Time.deltaTime);
                 }
 
+                break;
+
+            case State.Attacking:
+                break;
+
+            case State.Reset:
+                
+                //  transform.position = Vector2.MoveTowards(transform.position, start, speed * Time.deltaTime);
+
+                if (Vector2.Distance(transform.position, start) <= 0.1f)
+                {
+                    StartCoroutine(StopMovement());
+                    state = State.Idle;
+                }
+                else
+                {
+                    Move((start - rb.position).normalized);
+                }
+
+                break;
+
+            case State.Idle:
+                FindTarget();
                 break;
 
         }
@@ -84,28 +120,33 @@ public class EnemyMovement : MonoBehaviour
         // random x direction;
         if (lastDir == 0)
         {
-            curDir = Random.Range(-1f, 1f);
+            if (Random.Range(-1f, 1f) > 0)
+            {
+                curDir = 1;
+            }
+            else
+            {
+                curDir = -1;
+            }    
         }
         else if (lastDir == 1)
         {
-            curDir = -1f;
+            curDir = -1;
         }
         else
         {
-            curDir = 1f;
+            curDir = 1;
         }
 
-        Vector2 randomDir = new Vector2(curDir, 0).normalized;
-
-        if (curDir >= 0)
-        {
-            lastDir = -1;
-            return start + randomDir * Random.Range(0f, Vector2.Distance(transform.position, endOfPlatformRight.position));
-        }
-        else
+        if (curDir == 1)
         {
             lastDir = 1;
-            return start + randomDir * Random.Range(0f, Vector2.Distance(transform.position, endOfPlatformLeft.position));
+            return new Vector2(curDir * Random.Range(0, endOfPlatformRight.position.x - transform.position.x), transform.position.y);
+        }
+        else
+        {
+            lastDir = -1;
+            return new Vector2(curDir * Random.Range(0, transform.position.x - endOfPlatformLeft.position.x), transform.position.y);
         }
         
     }
@@ -116,6 +157,14 @@ public class EnemyMovement : MonoBehaviour
         {
             state = State.Chase;
         }
+    }
+
+    private IEnumerator StopMovement()
+    {
+        yield return new WaitForSeconds(2f);
+        Debug.Log("new position");
+        state = State.Patrol;
+        roamPosition = ToRoamPosition();
     }
 
     public bool isGrounded() {
