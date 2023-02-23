@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 	public BoxCollider2D floorCollider;
 	public BoxCollider2D wallColliderRight;
 	public BoxCollider2D wallColliderLeft;
+	private Animator anim;
 	private float lastOnGroundTime = 1;
 	private float lastSinceJumpPress = 0;
 	private float jumpingTime = 0;
@@ -28,40 +29,68 @@ public class PlayerMovement : MonoBehaviour
 		
 		if(isGrounded()) {
 			lastOnGroundTime = 0;
+			anim.SetBool("InAir", false);
 		}
+		else
+		{
+            anim.SetBool("InAir", true);
+        }
 		if(Input.GetButtonDown("Jump")) {
 			lastSinceJumpPress = 0;
-		}
+			anim.SetTrigger("Jump");
+            anim.SetBool("InAir", true);
+        }
 		if(isJumping && ((!Input.GetButton("Jump")) || jumpingTime > data.jumpTime)) {
 			isJumping = false;
 			rb.gravityScale = data.gravityScale;
+			anim.ResetTrigger("Jump");
 		}
 
 		// For controlling acceleration while wall jumping
 		if(wallJumping && jumpingTime > data.wallJumpTime) {
 			wallJumping = false;
-		}
+			anim.ResetTrigger("Jump");
+
+        }
 
 		// Regular jump
 		if(lastSinceJumpPress < data.jumpBuffer) {
-			if(lastOnGroundTime < data.coyoteTime) {
+			if (lastOnGroundTime < data.coyoteTime)
+			{
 				Jump();
 				lastSinceJumpPress = data.jumpBuffer;
 				lastOnGroundTime = data.coyoteTime;
 			}
 			// Wall jump
-			else if(wallColliderRight.IsTouchingLayers(LayerMask.GetMask("Floor"))) {
+			else if (wallColliderRight.IsTouchingLayers(LayerMask.GetMask("Floor")))
+			{
 				wallJumping = true;
 				wallJumpingDirection = -1;
 				Jump();
+				anim.SetBool("NextToWall", true);
 			}
-			else if(wallColliderLeft.IsTouchingLayers(LayerMask.GetMask("Floor"))) {
+			else if (wallColliderLeft.IsTouchingLayers(LayerMask.GetMask("Floor")))
+			{
 				wallJumping = true;
 				wallJumpingDirection = 1;
 				Jump();
+				anim.SetBool("NextToWall", true);
 			}
-		}
+			else
+			{
+                anim.SetBool("NextToWall", false);
+            }
+        }
 		moveInput.x = Input.GetAxisRaw("Horizontal");
+		// Ignore jumping until jump animations for player are released
+		if (moveInput.x != 0 )
+		{
+			anim.SetBool("Running", true);
+		}
+		else
+		{
+            anim.SetBool("Running", false);
+        }
     }
 
     private void FixedUpdate()
