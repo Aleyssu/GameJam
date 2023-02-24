@@ -73,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
 		if(lastSinceJumpPress < data.jumpBuffer) {
 			if (lastOnGroundTime < data.coyoteTime)
 			{
-				anim.SetBool("NextToWall", false);
 				Jump();
 				lastSinceJumpPress = data.jumpBuffer;
 				lastOnGroundTime = data.coyoteTime;
@@ -84,7 +83,6 @@ public class PlayerMovement : MonoBehaviour
 				anim.ResetTrigger("Jump");
 				wallJumping = true;
 				wallJumpingDirection = -1 * facingDirection;
-				anim.SetBool("NextToWall", true);
 				Jump();
 			}
 			else if (wallColliderLeft.IsTouchingLayers(LayerMask.GetMask("Floor")) || wallColliderLeft.IsTouchingLayers(LayerMask.GetMask("Companion")))
@@ -92,7 +90,6 @@ public class PlayerMovement : MonoBehaviour
 				anim.ResetTrigger("Jump");
 				wallJumping = true;
 				wallJumpingDirection = 1 * facingDirection;
-				anim.SetBool("NextToWall", true);
 				Jump();
 			}
         }
