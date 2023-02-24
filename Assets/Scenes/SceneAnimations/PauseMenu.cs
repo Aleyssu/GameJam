@@ -19,7 +19,8 @@ public class PauseMenu : MonoBehaviour
     {
         if (hasResume)
         {
-            StartCoroutine(DelayResume());
+            hasResume = false;
+            Time.timeScale = 1.0f;
         }
     }
     public void OnResume()
@@ -32,11 +33,5 @@ public class PauseMenu : MonoBehaviour
     {
         transition.next = "Main Menu";
         transition.load = true;
-    }
-
-    IEnumerator DelayResume()
-    {
-        yield return new WaitForSeconds(1f);
-        Time.timeScale = 1.0f;
     }
 }
