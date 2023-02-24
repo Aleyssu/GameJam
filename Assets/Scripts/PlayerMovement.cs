@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
 	public PlayerMovementData data;
     public Rigidbody2D rb;
+	public BoxCollider2D mainBodyCollider;
 	public BoxCollider2D floorCollider;
 	public BoxCollider2D wallColliderRight;
 	public BoxCollider2D wallColliderLeft;
@@ -19,8 +20,15 @@ public class PlayerMovement : MonoBehaviour
 	private int wallJumpingDirection = 1;
 	private int facingDirection = 1;
 	private float jumpMult = 1;
+	private float movementMult = 1;
+	
 	private Vector2 moveInput;
 	public LayerMask groundLayer;
+	
+	// Crouching
+	private bool isCrouching = false;
+	private Vector2 originalHitbox;
+	private Vector2 crouchedHitbox;
 
 	// SFX
 	public AudioSource srcWalk;
@@ -31,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
 		srcWalk.clip = data.walkSFX;
 		srcJump.clip = data.jumpSFX;
 		srcLand.clip = data.landSFX;
+
+		originalHitbox = mainBodyCollider.size;
+		crouchedHitbox = new Vector2(mainBodyCollider.size.x, mainBodyCollider.size.y * data.crouchedHitboxMult);
 	}
 
 	private void Update()
@@ -52,6 +63,20 @@ public class PlayerMovement : MonoBehaviour
 		{
             anim.SetBool("InAir", true);
         }
+
+		// Crouching
+		if(Input.GetAxisRaw("Vertical") < 0) {
+			anim.SetTrigger("Crouching");
+			isCrouching = true;
+			mainBodyCollider.size = crouchedHitbox;
+			movementMult = data.crouchedMovementMult;
+		}
+		else {
+			anim.ResetTrigger("Crouching");
+			isCrouching = false;
+			mainBodyCollider.size = originalHitbox;
+			movementMult = 1;
+		}
 
 		// Check for jump input
 		if(Input.GetButtonDown("Jump")) {
@@ -109,6 +134,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		// Movement - force applied is calculated by runForce * the difference in velocity between the current and max
 		if(Mathf.Abs(moveInput.x) > 0.1f && (Mathf.Abs(rb.velocity.x) < data.runMaxSpeed || (rb.velocity.x * moveInput.x) < 0)) {
+			// Air accel multiplier
 			if(lastOnGroundTime <= 0.1f) {
 				rb.AddForce(new Vector2(moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 			}
@@ -116,9 +142,9 @@ public class PlayerMovement : MonoBehaviour
 			else if(wallJumping) {
 				rb.AddForce(new Vector2(data.wallJumpAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 			}
-			// Air accel multiplier
+			// Walking on land
 			else {
-				rb.AddForce(new Vector2(data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+				rb.AddForce(new Vector2(movementMult * data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 			}
 		}
 		// Flipping facing direction

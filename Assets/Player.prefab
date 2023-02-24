@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 40a02ff39c8ec574aa5d19716e2d50c9, type: 2}
   rb: {fileID: 2528177791621953689}
+  mainBodyCollider: {fileID: 2528177791621953686}
   floorCollider: {fileID: 2528177791621953682}
   wallColliderRight: {fileID: 2528177791621953685}
   wallColliderLeft: {fileID: 2528177791621953684}
