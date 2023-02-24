@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 1815363347463105884}
   - component: {fileID: 1815363347463105875}
   - component: {fileID: 1421245962}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Skeleton_Mace
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -184,7 +184,6 @@ MonoBehaviour:
   animationTime: 3
   endOfPlatformLeft: {fileID: 0}
   endOfPlatformRight: {fileID: 0}
-  player: {fileID: 0}
   enemyCombat: {fileID: 1815363347463105875}
   anim: {fileID: 1421245962}
   data: {fileID: 11400000, guid: c31a07678ec56c546a9d0477f2626308, type: 2}

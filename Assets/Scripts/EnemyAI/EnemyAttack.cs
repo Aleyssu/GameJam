@@ -10,7 +10,7 @@ public class EnemyAttack : MonoBehaviour
     private bool canAttack = true;
 
     [SerializeField] private Transform attackPoint;
-    [SerializeField] private GameObject playerHealthSystem;
+    private GameObject playerHealthSystem;
     public LayerMask hittableLayers;
     
     // Animation
@@ -19,7 +19,7 @@ public class EnemyAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerHealthSystem = GameObject.FindGameObjectWithTag("Health");
     }
 
     // Update is called once per frame

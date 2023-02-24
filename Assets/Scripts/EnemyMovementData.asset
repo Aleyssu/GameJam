@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runMaxSpeed: 2
   runForce: 100
-  runDeccelForce: 10
+  runDeccelForce: 2
   jumpVelocity: 15
   jumpTime: 0.2
   gravityScaleJumping: 1

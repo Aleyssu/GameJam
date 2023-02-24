@@ -5,8 +5,18 @@ using static UnityEngine.GraphicsBuffer;
 
 public class CompAttackRange : MonoBehaviour
 {
+    private bool canAttack = true;
+    [SerializeField] private float attackCD = 1f;
+    [SerializeField] private float attackRange = 0.25f;
+
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private LayerMask hittableLayers;
+
+    [SerializeField] private Animator anim;
+
     public Companion companion;
-    void OnTriggerEnter(Collider col)
+
+    void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Enemy")
         {
@@ -19,6 +29,47 @@ public class CompAttackRange : MonoBehaviour
             {
                 companion.Attack(Vector2.right);
             }
+
+            companion.target = col.gameObject;
+            Attack();
         }
+    }
+
+    private void Attack()
+    {
+        if (canAttack)
+        {
+            Debug.Log("?");
+            companion.isAttacking = true;
+            anim.SetTrigger("Attack");
+
+            canAttack = false;
+            StartCoroutine(DelayAttack());
+        }
+
+    }
+
+    private IEnumerator DelayAttack()
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, hittableLayers);
+        foreach (Collider2D hit in hits)
+        {
+            Debug.Log("hitting enemy");
+            hit.gameObject.SetActive(false);
+        }
+
+        yield return new WaitForSeconds(attackCD);
+        canAttack = true;
+        companion.isAttacking = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }
