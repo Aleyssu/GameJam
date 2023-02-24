@@ -190,5 +190,12 @@ public class Companion : MonoBehaviour
                 DetectEnemy();
             }
         }
+        if (col.gameObject.tag == "JumpPoint")
+        {
+            if (target.transform.position.y > transform.position.y)
+            {
+                Jump();
+            }
+        }
     }
 }
