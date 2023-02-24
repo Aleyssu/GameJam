@@ -32,20 +32,7 @@ public class EnemyAttack : MonoBehaviour
     {
         if (canAttack)
         {
-            // trigger attack animation here
-            anim.SetBool("Attacking", true);
-
-            Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, hittableLayers);
-            bool playerDamaged = false;
-            foreach(Collider2D hit in hits)
-            {
-                Debug.Log(hit);
-                if (hit.tag == "Player" && !playerDamaged)
-                {
-                    playerHealthSystem.GetComponent<HeartsVisual>().healthSystem.Damage(attackDamage);
-                    playerDamaged = true;
-                }
-            }
+            anim.SetTrigger("Attack");
 
             // anim.ResetTrigger();
             canAttack = false;
@@ -56,6 +43,20 @@ public class EnemyAttack : MonoBehaviour
 
     private IEnumerator DelayAttack()
     {
+        yield return new WaitForSeconds(0.45f);
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, hittableLayers);
+        bool playerDamaged = false;
+        foreach (Collider2D hit in hits)
+        {
+            Debug.Log(hit);
+            if (hit.tag == "Player" && !playerDamaged)
+            {
+                playerHealthSystem.GetComponent<HeartsVisual>().healthSystem.Damage(attackDamage);
+                playerDamaged = true;
+            }
+        }
+
         yield return new WaitForSeconds(attackCD);
         canAttack = true;
     }
