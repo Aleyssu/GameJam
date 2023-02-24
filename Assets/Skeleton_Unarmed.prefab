@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2112331062}
   m_Layer: 0
   m_Name: Skeleton_Unarmed
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,12 +102,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab50b931161e7b648b8d7404d12106b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 2
+  attackRange: 1.5
   animationTime: 1
   endOfPlatformLeft: {fileID: 0}
   endOfPlatformRight: {fileID: 0}
-  player: {fileID: 2528177791621953688, guid: 67c7050159414844b8925fd20082a997, type: 3}
-  enemyCombat: {fileID: 0}
+  player: {fileID: 0}
+  enemyCombat: {fileID: 857783539146644033}
   anim: {fileID: 2112331062}
   data: {fileID: 11400000, guid: c31a07678ec56c546a9d0477f2626308, type: 2}
   rb: {fileID: 857783539146644032}

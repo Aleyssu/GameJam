@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
 	public PlayerMovementData data;
     public Rigidbody2D rb;
+	public BoxCollider2D mainBodyCollider;
 	public BoxCollider2D floorCollider;
 	public BoxCollider2D wallColliderRight;
 	public BoxCollider2D wallColliderLeft;
@@ -19,8 +20,29 @@ public class PlayerMovement : MonoBehaviour
 	private int wallJumpingDirection = 1;
 	private int facingDirection = 1;
 	private float jumpMult = 1;
+	private float movementMult = 1;
+	
 	private Vector2 moveInput;
 	public LayerMask groundLayer;
+	
+	// Crouching
+	private bool isCrouching = false;
+	private Vector2 originalHitbox;
+	private Vector2 crouchedHitbox;
+
+	// SFX
+	public AudioSource srcWalk;
+	public AudioSource srcJump;
+	public AudioSource srcLand;
+
+	public void Awake() {
+		srcWalk.clip = data.walkSFX;
+		srcJump.clip = data.jumpSFX;
+		srcLand.clip = data.landSFX;
+
+		originalHitbox = mainBodyCollider.size;
+		crouchedHitbox = new Vector2(mainBodyCollider.size.x, mainBodyCollider.size.y * data.crouchedHitboxMult);
+	}
 
 	private void Update()
 	{	
@@ -31,13 +53,30 @@ public class PlayerMovement : MonoBehaviour
 
 		// Checking if player on ground
 		if(isGrounded()) {
+			if(anim.GetBool("InAir")) {
+				srcLand.Play();
+				anim.SetBool("InAir", false);
+			}
 			lastOnGroundTime = 0;
-			anim.SetBool("InAir", false);
 		}
 		else
 		{
             anim.SetBool("InAir", true);
         }
+
+		// Crouching
+		if(Input.GetAxisRaw("Vertical") < 0) {
+			anim.SetTrigger("Crouching");
+			isCrouching = true;
+			mainBodyCollider.size = crouchedHitbox;
+			movementMult = data.crouchedMovementMult;
+		}
+		else {
+			anim.ResetTrigger("Crouching");
+			isCrouching = false;
+			mainBodyCollider.size = originalHitbox;
+			movementMult = 1;
+		}
 
 		// Check for jump input
 		if(Input.GetButtonDown("Jump")) {
@@ -59,7 +98,6 @@ public class PlayerMovement : MonoBehaviour
 		if(lastSinceJumpPress < data.jumpBuffer) {
 			if (lastOnGroundTime < data.coyoteTime)
 			{
-				anim.SetBool("NextToWall", false);
 				Jump();
 				lastSinceJumpPress = data.jumpBuffer;
 				lastOnGroundTime = data.coyoteTime;
@@ -70,7 +108,6 @@ public class PlayerMovement : MonoBehaviour
 				anim.ResetTrigger("Jump");
 				wallJumping = true;
 				wallJumpingDirection = -1 * facingDirection;
-				anim.SetBool("NextToWall", true);
 				Jump();
 			}
 			else if (wallColliderLeft.IsTouchingLayers(LayerMask.GetMask("Floor")) || wallColliderLeft.IsTouchingLayers(LayerMask.GetMask("Companion")))
@@ -78,7 +115,6 @@ public class PlayerMovement : MonoBehaviour
 				anim.ResetTrigger("Jump");
 				wallJumping = true;
 				wallJumpingDirection = 1 * facingDirection;
-				anim.SetBool("NextToWall", true);
 				Jump();
 			}
         }
@@ -97,16 +133,18 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
 	{
 		// Movement - force applied is calculated by runForce * the difference in velocity between the current and max
-		if(Mathf.Abs(rb.velocity.x) < data.runMaxSpeed || (rb.velocity.x * moveInput.x) < 0) {
+		if(Mathf.Abs(moveInput.x) > 0.1f && (Mathf.Abs(rb.velocity.x) < data.runMaxSpeed || (rb.velocity.x * moveInput.x) < 0)) {
+			// Air accel multiplier
 			if(lastOnGroundTime <= 0.1f) {
 				rb.AddForce(new Vector2(moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 			}
+			// Air accel multiplier immediately following a walljump
 			else if(wallJumping) {
 				rb.AddForce(new Vector2(data.wallJumpAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 			}
-			// Air accel multiplier
+			// Walking on land
 			else {
-				rb.AddForce(new Vector2(data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
+				rb.AddForce(new Vector2(movementMult * data.airAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 			}
 		}
 		// Flipping facing direction
@@ -139,10 +177,13 @@ public class PlayerMovement : MonoBehaviour
 		rb.gravityScale = data.gravityScaleJumping;
 		if(rb.IsTouchingLayers(LayerMask.GetMask("Companion"))) {
 			jumpMult = data.companionJumpBoostMult;
+			srcJump.clip = data.jumpBoostSFX;
 		}
 		else {
 			jumpMult = 1;
+			srcJump.clip = data.jumpSFX;
 		}
+		srcJump.Play();
 
 		if(wallJumping) {
 			rb.velocity = new Vector2(data.jumpVelocity * data.wallJumpMult * wallJumpingDirection * jumpMult, data.jumpVelocity * jumpMult);
@@ -161,5 +202,9 @@ public class PlayerMovement : MonoBehaviour
 
 	public bool isGrounded() {
 		return floorCollider.IsTouchingLayers(LayerMask.GetMask("Floor")) || floorCollider.IsTouchingLayers(LayerMask.GetMask("Companion"));
+	}
+
+	public void walkSFX() {
+		srcWalk.Play();
 	}
 }

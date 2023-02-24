@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 1421245962}
   m_Layer: 0
   m_Name: Skeleton_Mace
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,11 +180,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab50b931161e7b648b8d7404d12106b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 0.4
-  animationTime: 1
+  attackRange: 2.25
+  animationTime: 3
   endOfPlatformLeft: {fileID: 0}
   endOfPlatformRight: {fileID: 0}
-  player: {fileID: 2528177791621953688, guid: 67c7050159414844b8925fd20082a997, type: 3}
+  player: {fileID: 0}
   enemyCombat: {fileID: 1815363347463105875}
   anim: {fileID: 1421245962}
   data: {fileID: 11400000, guid: c31a07678ec56c546a9d0477f2626308, type: 2}
