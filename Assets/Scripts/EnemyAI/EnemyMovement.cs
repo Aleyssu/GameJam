@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    private char target;
     private int lastDir = 0;
     private int curDir;
     [SerializeField] private float attackRange = 0.4f;
@@ -23,6 +24,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Transform endOfPlatformLeft;
     [SerializeField] private Transform endOfPlatformRight;
     private Transform player;
+    private Transform companion;
 
     [SerializeField]
     private EnemyAttack enemyCombat;
@@ -40,11 +42,12 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         state = State.Patrol;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        companion = GameObject.FindGameObjectWithTag("Companion").transform;
         start = transform.position;
         roamPosition = ToRoamPosition();
     }
@@ -83,9 +86,16 @@ public class EnemyMovement : MonoBehaviour
             case State.Chase:
                 if (player.position.x > endOfPlatformRight.position.x || player.position.x < endOfPlatformLeft.position.x)
                 {
-                    state = State.Reset;
+                    if (player.position.x > endOfPlatformRight.position.x || player.position.x < endOfPlatformLeft.position.x)
+                    {
+                        target = 'c';
+                    }
+                    else
+                    {
+                        state = State.Reset;
+                    }
                 }
-                else if (Vector2.Distance(transform.position, player.position) < attackRange)
+                else if (Vector2.Distance(transform.position, player.position) < attackRange || Vector2.Distance(transform.position, companion.position) < attackRange+0.5f)
                 {
                     StartCoroutine(StopMovement(1));
                     enemyCombat.Attack();
@@ -93,7 +103,15 @@ public class EnemyMovement : MonoBehaviour
                 }
                 else
                 {
-                    Move((new Vector2(player.position.x, transform.position.y) - rb.position).normalized);
+                    if (target == 'p')
+                    {
+                        Move((new Vector2(player.position.x, transform.position.y) - rb.position).normalized);
+                    }
+                    else if (target == 'c')
+                    {
+                        Move((new Vector2(companion.position.x, transform.position.y) - rb.position).normalized);
+                    }
+                   
                     // transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.position.x, transform.position.y), speed * Time.deltaTime);
                 }
 
@@ -166,8 +184,16 @@ public class EnemyMovement : MonoBehaviour
 
     private void FindTarget()
     {
-        if (Mathf.Abs(transform.position.x - player.position.x) < 5f && Mathf.Abs(transform.position.y - player.position.y) < 1f)
+        float toPlayer = Mathf.Abs(transform.position.x - player.position.x);
+        float toCompanion = Mathf.Abs(transform.position.x - companion.position.x);
+        if (toPlayer < 5f && Mathf.Abs(transform.position.y - player.position.y) < 1f)
         {
+            target = 'p';
+            state = State.Chase;
+        }
+        else if (toCompanion < 5.5f && Mathf.Abs(transform.position.y - player.position.y) < 1f)
+        {
+            target = 'c';
             state = State.Chase;
         }
     }
@@ -225,6 +251,20 @@ public class EnemyMovement : MonoBehaviour
 		if(Mathf.Abs(moveInput.x) < 0.01f) {
 			rb.AddForce(new Vector2(-data.runDeccelForce * rb.velocity.x, 0));
 		}
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Player" || collision.collider.tag == "Companion")
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+        
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        rb.constraints = RigidbodyConstraints2D.None;
     }
 
 }

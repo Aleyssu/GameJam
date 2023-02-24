@@ -9,6 +9,8 @@ public class CameraFollow : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private Transform target;
 
+    public Vector3 minValues, maxValues;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -22,6 +24,12 @@ public class CameraFollow : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 targetPosition = target.position + offset;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, 0.25f);
+
+        Vector3 boundPosition = new Vector3(
+            Mathf.Clamp(targetPosition.x, minValues.x, maxValues.x),
+            Mathf.Clamp(targetPosition.y, minValues.y, maxValues.y),
+            Mathf.Clamp(targetPosition.z, minValues.z, maxValues.z));
+
+        transform.position = Vector3.SmoothDamp(transform.position, boundPosition, ref velocity, 0.25f);
     }
 }
