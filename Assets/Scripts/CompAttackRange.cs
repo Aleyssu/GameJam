@@ -13,6 +13,7 @@ public class CompAttackRange : MonoBehaviour
     [SerializeField] private LayerMask hittableLayers;
 
     [SerializeField] private Animator anim;
+    [SerializeField] private AudioSource src;
 
     public Companion companion;
 
@@ -71,5 +72,9 @@ public class CompAttackRange : MonoBehaviour
             return;
 
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    public void attackSFX() {
+        src.Play();
     }
 }

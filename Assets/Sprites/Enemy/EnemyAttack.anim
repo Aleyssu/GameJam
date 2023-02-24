@@ -103,7 +103,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.15
-    functionName: 
+    functionName: attackSFX
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

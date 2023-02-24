@@ -15,6 +15,8 @@ public class EnemyAttack : MonoBehaviour
     
     // Animation
     [SerializeField] private Animator anim; 
+    [SerializeField] private AudioSource srcAttack;
+    [SerializeField] private AudioClip[] sfxAttack;
 
     // Start is called before the first frame update
     void Start()
@@ -67,5 +69,10 @@ public class EnemyAttack : MonoBehaviour
             return;
 
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    public void attackSFX() {
+        srcAttack.clip = sfxAttack[Random.Range(0, sfxAttack.Length)];
+        srcAttack.Play();
     }
 }
