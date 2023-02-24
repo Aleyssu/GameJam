@@ -29,7 +29,29 @@ MonoBehaviour:
   airAccelMult: 0.504
   crouchedMovementMult: 0.5
   crouchedHitboxMult: 0.4
-  jumpSFX: {fileID: 8300000, guid: 13f096c622944144b950485443b688cf, type: 3}
-  jumpBoostSFX: {fileID: 8300000, guid: 5c5f5fd77218790478d2f455d39cb146, type: 3}
-  landSFX: {fileID: 8300000, guid: 40bc1fc135496874d891a6ec46aa9b0a, type: 3}
-  walkSFX: {fileID: 8300000, guid: 5d26273e62e3ed047babd0645b89f096, type: 3}
+  jumpSFX:
+  - {fileID: 8300000, guid: b85d636ec799e7445989d54c0163f828, type: 3}
+  - {fileID: 8300000, guid: b35fc0e687d388f4ab5dab44ad24abc2, type: 3}
+  - {fileID: 8300000, guid: b804ce7f98ffef545b93b7ada10999f1, type: 3}
+  - {fileID: 8300000, guid: e2bbed1ae7bcb374fab4b06b12ee3415, type: 3}
+  - {fileID: 8300000, guid: 542b1bf91a7b6da4f96507fd0d0976d4, type: 3}
+  - {fileID: 8300000, guid: a2b6f8706d897294cb8e691445f5d0f2, type: 3}
+  - {fileID: 8300000, guid: 2303d29f7ff63b348b7ef178723d1c41, type: 3}
+  jumpBoostSFX:
+  - {fileID: 8300000, guid: 280441b094b88a74fa0dc39b5bca04e0, type: 3}
+  - {fileID: 8300000, guid: 18b311ac652414541a57c5cf5a02abd4, type: 3}
+  landSFX:
+  - {fileID: 8300000, guid: b85d636ec799e7445989d54c0163f828, type: 3}
+  - {fileID: 8300000, guid: b35fc0e687d388f4ab5dab44ad24abc2, type: 3}
+  - {fileID: 8300000, guid: b804ce7f98ffef545b93b7ada10999f1, type: 3}
+  - {fileID: 8300000, guid: e2bbed1ae7bcb374fab4b06b12ee3415, type: 3}
+  - {fileID: 8300000, guid: 542b1bf91a7b6da4f96507fd0d0976d4, type: 3}
+  - {fileID: 8300000, guid: a2b6f8706d897294cb8e691445f5d0f2, type: 3}
+  - {fileID: 8300000, guid: 2303d29f7ff63b348b7ef178723d1c41, type: 3}
+  walkSFX:
+  - {fileID: 8300000, guid: 8823fefa8f5cf204e98b7f7ee4f1ffe2, type: 3}
+  - {fileID: 8300000, guid: e12502527ec8e734babe3567a2cb023e, type: 3}
+  - {fileID: 8300000, guid: 0f619b3161490d148a0ae08a3d8967f3, type: 3}
+  - {fileID: 8300000, guid: b45a8a7ca89a150428d8541aff195729, type: 3}
+  - {fileID: 8300000, guid: f1285c2ea22921540811dcb3614c900d, type: 3}
+  - {fileID: 8300000, guid: ddaecd85b80f6fe4ab59ba19c5bad5b0, type: 3}

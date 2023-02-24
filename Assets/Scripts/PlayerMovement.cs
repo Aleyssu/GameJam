@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
 	private bool isCrouching = false;
 	private Vector2 originalHitbox;
 	private Vector2 crouchedHitbox;
+	private Vector2 originalOffset;
+	private Vector2 crouchedOffset;
 
 	// SFX
 	public AudioSource srcWalk;
@@ -36,12 +38,10 @@ public class PlayerMovement : MonoBehaviour
 	public AudioSource srcLand;
 
 	public void Awake() {
-		srcWalk.clip = data.walkSFX;
-		srcJump.clip = data.jumpSFX;
-		srcLand.clip = data.landSFX;
-
 		originalHitbox = mainBodyCollider.size;
 		crouchedHitbox = new Vector2(mainBodyCollider.size.x, mainBodyCollider.size.y * data.crouchedHitboxMult);
+		originalOffset = mainBodyCollider.offset;
+		crouchedOffset = new Vector2(mainBodyCollider.offset.x, mainBodyCollider.offset.y - mainBodyCollider.size.y * (1 - data.crouchedHitboxMult) / 2);
 	}
 
 	private void Update()
@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
 		// Checking if player on ground
 		if(isGrounded()) {
 			if(anim.GetBool("InAir")) {
+				srcLand.clip = data.landSFX[Random.Range(0, data.landSFX.Length)];
 				srcLand.Play();
 				anim.SetBool("InAir", false);
 			}
@@ -69,12 +70,14 @@ public class PlayerMovement : MonoBehaviour
 			anim.SetBool("Crouched", true);
 			isCrouching = true;
 			mainBodyCollider.size = crouchedHitbox;
+			mainBodyCollider.offset = crouchedOffset;
 			movementMult = data.crouchedMovementMult;
 		}
 		else {
 			anim.SetBool("Crouched", false);
 			isCrouching = false;
 			mainBodyCollider.size = originalHitbox;
+			mainBodyCollider.offset = originalOffset;
 			movementMult = 1;
 		}
 
@@ -105,14 +108,16 @@ public class PlayerMovement : MonoBehaviour
 			// Wall jump
 			else if (wallColliderRight.IsTouchingLayers(LayerMask.GetMask("Floor")) || wallColliderRight.IsTouchingLayers(LayerMask.GetMask("Companion")))
 			{
-				anim.ResetTrigger("Jump");
+				anim.ResetTrigger("WallJump");
+				anim.SetTrigger("WallJump");
 				wallJumping = true;
 				wallJumpingDirection = -1 * facingDirection;
 				Jump();
 			}
 			else if (wallColliderLeft.IsTouchingLayers(LayerMask.GetMask("Floor")) || wallColliderLeft.IsTouchingLayers(LayerMask.GetMask("Companion")))
 			{
-				anim.ResetTrigger("Jump");
+				anim.ResetTrigger("WallJump");
+				anim.SetTrigger("WallJump");
 				wallJumping = true;
 				wallJumpingDirection = 1 * facingDirection;
 				Jump();
@@ -177,23 +182,24 @@ public class PlayerMovement : MonoBehaviour
 		rb.gravityScale = data.gravityScaleJumping;
 		if(rb.IsTouchingLayers(LayerMask.GetMask("Companion"))) {
 			jumpMult = data.companionJumpBoostMult;
-			srcJump.clip = data.jumpBoostSFX;
+			srcJump.clip = data.jumpBoostSFX[Random.Range(0, data.jumpBoostSFX.Length)];
 		}
 		else {
 			jumpMult = 1;
-			srcJump.clip = data.jumpSFX;
+			srcJump.clip = data.jumpSFX[Random.Range(0, data.jumpSFX.Length)];
 		}
 		srcJump.Play();
 
 		if(wallJumping) {
 			rb.velocity = new Vector2(data.jumpVelocity * data.wallJumpMult * wallJumpingDirection * jumpMult, data.jumpVelocity * jumpMult);
-			facingDirection = wallJumpingDirection;
-			if(facingDirection > 0) {
-				rb.transform.localRotation = Quaternion.Euler(0, 0, 0);
-			}
-			else {
-				rb.transform.localRotation = Quaternion.Euler(0, 180, 0);
-			}
+			// Flipping facing direction after walljump
+			// facingDirection = wallJumpingDirection;
+			// if(facingDirection > 0) {
+			// 	rb.transform.localRotation = Quaternion.Euler(0, 0, 0);
+			// }
+			// else {
+			// 	rb.transform.localRotation = Quaternion.Euler(0, 180, 0);
+			// }
 		}
 		else {
 			rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity * jumpMult);
@@ -205,6 +211,7 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	public void walkSFX() {
+		srcWalk.clip = data.walkSFX[Random.Range(0, data.walkSFX.Length)];
 		srcWalk.Play();
 	}
 }
