@@ -48,8 +48,12 @@ public class HeartsVisual : MonoBehaviour
         }
     }
 
+    public static HeartsVisual Instance;
+
     private void Awake()
     {
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
         heartImageList = new List<HeartImage>();
     }
 
