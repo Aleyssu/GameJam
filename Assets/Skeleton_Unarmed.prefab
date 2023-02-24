@@ -106,7 +106,6 @@ MonoBehaviour:
   animationTime: 1
   endOfPlatformLeft: {fileID: 0}
   endOfPlatformRight: {fileID: 0}
-  player: {fileID: 0}
   enemyCombat: {fileID: 857783539146644033}
   anim: {fileID: 2112331062}
   data: {fileID: 11400000, guid: c31a07678ec56c546a9d0477f2626308, type: 2}
@@ -173,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2afc266b2e5cd2479c36ec41630773c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCD: 2.5
+  attackCD: 1
   attackRange: 0.5
   attackDamage: 1
   attackPoint: {fileID: 5702471967635906017}
