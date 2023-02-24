@@ -22,6 +22,10 @@ public class PlayerMovementData : ScriptableObject
 	public float coyoteTime = 0.1f; // time after leaving a platform when the player can still jump
 	public float jumpBuffer = 0.05f; // time after pressing jump when the keypress still registers (in case the player is falling and touches the floor right after the player presses jump)
 	[Range(0.01f, 1)] public float airAccelMult = 0.5f; // movement multiplier applied when airborne
+
+	[Header("Crouch")]
+	public float crouchedMovementMult = 0.5f;
+	public float crouchedHitboxMult = 0.5f;
 	
 	[Header("SFX")]
 	public AudioClip jumpSFX;
