@@ -64,6 +64,18 @@ public class CompAttackRange : MonoBehaviour
         yield return new WaitForSeconds(attackCD);
         canAttack = true;
         companion.isAttacking = false;
+        switch (companion.mode)
+        {
+            case (AIMode.Hunt):
+                companion.DetectEnemy();
+                break;
+            case AIMode.Stay:
+                companion.target = companion.gameObject;
+                break;
+            case AIMode.Follow:
+                companion.target = companion.player;
+                break;
+        }
     }
 
     private void OnDrawGizmosSelected()
