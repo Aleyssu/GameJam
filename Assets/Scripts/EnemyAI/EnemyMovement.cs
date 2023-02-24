@@ -73,7 +73,6 @@ public class EnemyMovement : MonoBehaviour
                 }
                 else
                 {
-                    // movement animation here
                     Move((roamPosition - rb.position).normalized);
                 }
 
@@ -87,12 +86,12 @@ public class EnemyMovement : MonoBehaviour
                 }
                 else if (Vector2.Distance(transform.position, player.position) < attackRange)
                 {
+                    StartCoroutine(StopMovement(1));
                     enemyCombat.Attack();
                     state = State.Attacking;
                 }
                 else
                 {
-                    // movement animation here
                     Move((new Vector2(player.position.x, transform.position.y) - rb.position).normalized);
                     // transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.position.x, transform.position.y), speed * Time.deltaTime);
                 }
@@ -100,7 +99,7 @@ public class EnemyMovement : MonoBehaviour
                 break;
 
             case State.Attacking:
-                StartCoroutine(StopMovement(1));
+                
                 break;
 
             case State.Reset:
@@ -109,21 +108,17 @@ public class EnemyMovement : MonoBehaviour
 
                 if (Vector2.Distance(transform.position, start) <= 0.3f)
                 {
-                    StartCoroutine(StopMovement(1));
+                    StartCoroutine(StopMovement(0));
                     state = State.Idle;
                 }
                 else
                 {
-                    // movement animation here
                     Move((start - rb.position).normalized);
                 }
 
                 break;
 
             case State.Idle:
-                // idle animation
-                anim.SetBool("Walking", false);
-
                 FindTarget();
                 break;
         }
@@ -170,7 +165,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void FindTarget()
     {
-        if (Mathf.Abs(transform.position.x - player.position.x) < 4f && Mathf.Abs(transform.position.y - player.position.y) < 0.5f)
+        if (Mathf.Abs(transform.position.x - player.position.x) < 5f && Mathf.Abs(transform.position.y - player.position.y) < 1f)
         {
             state = State.Chase;
         }
@@ -178,6 +173,8 @@ public class EnemyMovement : MonoBehaviour
 
     private IEnumerator StopMovement(int type)
     {
+        anim.SetBool("Walking", false);
+
         if (type == 0)
         {
             yield return new WaitForSeconds(2f);
@@ -190,6 +187,8 @@ public class EnemyMovement : MonoBehaviour
             yield return new WaitForSeconds(animationTime);
             state = State.Chase;
         }
+
+        anim.SetBool("Walking", true);
     }
 
     public bool isGrounded() {
