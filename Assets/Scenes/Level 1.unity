@@ -10106,6 +10106,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 509811093463131195, guid: 7dc59f52fe9cd8543b0dcbeb25bd34fe, type: 3}
+      propertyPath: maxValues.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 509811093463131195, guid: 7dc59f52fe9cd8543b0dcbeb25bd34fe, type: 3}
+      propertyPath: maxValues.y
+      value: 3.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 509811093463131195, guid: 7dc59f52fe9cd8543b0dcbeb25bd34fe, type: 3}
+      propertyPath: maxValues.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 509811093463131195, guid: 7dc59f52fe9cd8543b0dcbeb25bd34fe, type: 3}
+      propertyPath: minValues.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 509811093463131195, guid: 7dc59f52fe9cd8543b0dcbeb25bd34fe, type: 3}
+      propertyPath: minValues.y
+      value: -3.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 509811093463131195, guid: 7dc59f52fe9cd8543b0dcbeb25bd34fe, type: 3}
+      propertyPath: minValues.z
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 509811093463131334, guid: 7dc59f52fe9cd8543b0dcbeb25bd34fe, type: 3}
       propertyPath: m_Name
       value: Main Camera
