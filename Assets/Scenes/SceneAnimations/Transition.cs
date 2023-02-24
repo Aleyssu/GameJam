@@ -12,6 +12,7 @@ public class Transition : MonoBehaviour
     void Awake()
     {
         animator = GetComponent<Animator>();
+        load = false;
     }
 
     // Update is called once per frame
@@ -29,6 +30,7 @@ public class Transition : MonoBehaviour
     IEnumerator DelayLoadLevel(string sceneName)
     {
         animator.SetTrigger("Load");
+        Time.timeScale = 1f;
         yield return new WaitForSeconds(transitionDelayTime);
         SceneManager.LoadScene(sceneName);
     }

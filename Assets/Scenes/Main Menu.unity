@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85312303e06be33409975e4401e40195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  levelLoad: {fileID: 796558603}
 --- !u!114 &139485235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,6 +695,7 @@ GameObject:
   - component: {fileID: 796558600}
   - component: {fileID: 796558601}
   - component: {fileID: 796558602}
+  - component: {fileID: 796558603}
   m_Layer: 0
   m_Name: LevelLoad
   m_TagString: Untagged
@@ -789,6 +790,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &796558603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796558599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e68653347f6ff45941f835325ebcc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  load: 0
+  next: SampleScene
+  transitionDelayTime: 1
 --- !u!1 &1287415877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,7 +1247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85312303e06be33409975e4401e40195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  levelLoad: {fileID: 0}
 --- !u!114 &1894265927
 MonoBehaviour:
   m_ObjectHideFlags: 0
