@@ -8,7 +8,7 @@ public class Platform : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Entity")
+        if (col.gameObject.tag == "Enemy")
         {
             objectStanding.Add(col.gameObject);
         }
