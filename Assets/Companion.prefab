@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1998980677, guid: c82977119ebdc56429b8efc6bfd9eb05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
   platform: {fileID: 0}
   target: {fileID: 2528177791621953690, guid: 67c7050159414844b8925fd20082a997, type: 3}
   anim: {fileID: 6710030898497436456}
-  followOffset: 0.025
+  followOffset: 2.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

@@ -27,6 +27,8 @@ MonoBehaviour:
   coyoteTime: 0.1
   jumpBuffer: 0.07
   airAccelMult: 0.504
+  crouchedMovementMult: 0.5
+  crouchedHitboxMult: 0.4
   jumpSFX: {fileID: 8300000, guid: 13f096c622944144b950485443b688cf, type: 3}
   jumpBoostSFX: {fileID: 8300000, guid: 5c5f5fd77218790478d2f455d39cb146, type: 3}
   landSFX: {fileID: 8300000, guid: 40bc1fc135496874d891a6ec46aa9b0a, type: 3}

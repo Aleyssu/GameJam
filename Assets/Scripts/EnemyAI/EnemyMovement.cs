@@ -22,7 +22,7 @@ public class EnemyMovement : MonoBehaviour
 
     [SerializeField] private Transform endOfPlatformLeft;
     [SerializeField] private Transform endOfPlatformRight;
-    [SerializeField] private Transform player;
+    private Transform player;
 
     [SerializeField]
     private EnemyAttack enemyCombat;
@@ -40,6 +40,7 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         state = State.Patrol;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     // Start is called before the first frame update
     void Start()

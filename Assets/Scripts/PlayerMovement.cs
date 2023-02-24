@@ -66,13 +66,13 @@ public class PlayerMovement : MonoBehaviour
 
 		// Crouching
 		if(Input.GetAxisRaw("Vertical") < 0) {
-			anim.SetTrigger("Crouching");
+			anim.SetBool("Crouched", true);
 			isCrouching = true;
 			mainBodyCollider.size = crouchedHitbox;
 			movementMult = data.crouchedMovementMult;
 		}
 		else {
-			anim.ResetTrigger("Crouching");
+			anim.SetBool("Crouched", false);
 			isCrouching = false;
 			mainBodyCollider.size = originalHitbox;
 			movementMult = 1;
