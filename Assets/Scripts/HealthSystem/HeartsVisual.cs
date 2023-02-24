@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HeartsVisual : MonoBehaviour
 {
@@ -9,8 +10,12 @@ public class HeartsVisual : MonoBehaviour
     [SerializeField] private Sprite halfHeartSprite;
     [SerializeField] private Sprite emptyHeartSprite;
 
+    [SerializeField] private int numHearts;
+
     private List<HeartImage> heartImageList;
     public Health healthSystem;
+
+    [SerializeField] private Image gameOver;
 
     public class HeartImage
     {
@@ -48,19 +53,15 @@ public class HeartsVisual : MonoBehaviour
         }
     }
 
-    public static HeartsVisual Instance;
-
     private void Awake()
     {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
         heartImageList = new List<HeartImage>();
     }
 
     private void Start()
     {
         // start with 1 heart
-        Health healthSystem = new Health(1);
+        Health healthSystem = new Health(numHearts);
         SetHealthSystem(healthSystem);
     }
 
@@ -95,6 +96,8 @@ public class HeartsVisual : MonoBehaviour
 
     private void Health_OnDead(object sender, System.EventArgs e)
     {
+        gameOver.enabled = true;
+        StartCoroutine(Restart("Main Menu"));
         Debug.Log("dead");
     }
 
@@ -128,5 +131,11 @@ public class HeartsVisual : MonoBehaviour
 
         return heartImage;
 
+    }
+
+    private IEnumerator Restart(string sceneName)
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(sceneName);
     }
 }
