@@ -1565,6 +1565,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 4865478120914021727, guid: f90807bccbac4e346bc7b1b577ca4f51, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f90807bccbac4e346bc7b1b577ca4f51, type: 3}
 --- !u!1 &889305365
@@ -3747,6 +3751,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 857783539146644036, guid: a8747434eb7c63547972eec2170c9e0e, type: 3}
+      propertyPath: endOfPlatformLeft
+      value: 
+      objectReference: {fileID: 1221032724}
+    - target: {fileID: 857783539146644036, guid: a8747434eb7c63547972eec2170c9e0e, type: 3}
+      propertyPath: endOfPlatformRight
+      value: 
+      objectReference: {fileID: 126870645}
     - target: {fileID: 857783539146644037, guid: a8747434eb7c63547972eec2170c9e0e, type: 3}
       propertyPath: m_SortingOrder
       value: 3
@@ -12246,7 +12258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 486893158115878546, guid: 95a071f6b128d2f4c89c15ba0e44f4a1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 486893158115878558, guid: 95a071f6b128d2f4c89c15ba0e44f4a1, type: 3}
       propertyPath: m_Pivot.x

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: EnemyMovementData
   m_EditorClassIdentifier: 
   runMaxSpeed: 5
-  runForce: 12
-  runDeccelForce: 5
+  runForce: 10
+  runDeccelForce: 3
   jumpVelocity: 15
   jumpTime: 0.2
   gravityScaleJumping: 1
