@@ -22,6 +22,17 @@ public class PlayerMovement : MonoBehaviour
 	private Vector2 moveInput;
 	public LayerMask groundLayer;
 
+	// SFX
+	public AudioSource srcWalk;
+	public AudioSource srcJump;
+	public AudioSource srcLand;
+
+	public void Awake() {
+		srcWalk.clip = data.walkSFX;
+		srcJump.clip = data.jumpSFX;
+		srcLand.clip = data.landSFX;
+	}
+
 	private void Update()
 	{	
 		// Jumping with input buffering and coyote time
@@ -31,8 +42,11 @@ public class PlayerMovement : MonoBehaviour
 
 		// Checking if player on ground
 		if(isGrounded()) {
+			if(anim.GetBool("InAir")) {
+				srcLand.Play();
+				anim.SetBool("InAir", false);
+			}
 			lastOnGroundTime = 0;
-			anim.SetBool("InAir", false);
 		}
 		else
 		{
@@ -97,10 +111,11 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
 	{
 		// Movement - force applied is calculated by runForce * the difference in velocity between the current and max
-		if(Mathf.Abs(rb.velocity.x) < data.runMaxSpeed || (rb.velocity.x * moveInput.x) < 0) {
+		if(Mathf.Abs(moveInput.x) > 0.1f && (Mathf.Abs(rb.velocity.x) < data.runMaxSpeed || (rb.velocity.x * moveInput.x) < 0)) {
 			if(lastOnGroundTime <= 0.1f) {
 				rb.AddForce(new Vector2(moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 			}
+			// Air accel multiplier immediately following a walljump
 			else if(wallJumping) {
 				rb.AddForce(new Vector2(data.wallJumpAccelMult * moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 			}
@@ -139,10 +154,13 @@ public class PlayerMovement : MonoBehaviour
 		rb.gravityScale = data.gravityScaleJumping;
 		if(rb.IsTouchingLayers(LayerMask.GetMask("Companion"))) {
 			jumpMult = data.companionJumpBoostMult;
+			srcJump.clip = data.jumpBoostSFX;
 		}
 		else {
 			jumpMult = 1;
+			srcJump.clip = data.jumpSFX;
 		}
+		srcJump.Play();
 
 		if(wallJumping) {
 			rb.velocity = new Vector2(data.jumpVelocity * data.wallJumpMult * wallJumpingDirection * jumpMult, data.jumpVelocity * jumpMult);
@@ -161,5 +179,9 @@ public class PlayerMovement : MonoBehaviour
 
 	public bool isGrounded() {
 		return floorCollider.IsTouchingLayers(LayerMask.GetMask("Floor")) || floorCollider.IsTouchingLayers(LayerMask.GetMask("Companion"));
+	}
+
+	public void walkSFX() {
+		srcWalk.Play();
 	}
 }
