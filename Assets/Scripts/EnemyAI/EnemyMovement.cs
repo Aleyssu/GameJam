@@ -253,4 +253,18 @@ public class EnemyMovement : MonoBehaviour
 		}
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Player" || collision.collider.tag == "Companion")
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+        
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        rb.constraints = RigidbodyConstraints2D.None;
+    }
+
 }

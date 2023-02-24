@@ -765,6 +765,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1506031453, guid: 67c7050159414844b8925fd20082a997, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506031463, guid: 67c7050159414844b8925fd20082a997, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506031464, guid: 67c7050159414844b8925fd20082a997, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2528177791621953687, guid: 67c7050159414844b8925fd20082a997, type: 3}
       propertyPath: srcJump
       value: 
@@ -13596,6 +13608,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6710030898497436448, guid: 1fc78e244cb52ff4a972e0fe25ef0ba1, type: 3}
       propertyPath: m_Name
+      value: Companion
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710030898497436448, guid: 1fc78e244cb52ff4a972e0fe25ef0ba1, type: 3}
+      propertyPath: m_TagString
       value: Companion
       objectReference: {fileID: 0}
     - target: {fileID: 6710030898497436461, guid: 1fc78e244cb52ff4a972e0fe25ef0ba1, type: 3}
