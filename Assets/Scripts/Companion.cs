@@ -20,9 +20,9 @@ public class Companion : MonoBehaviour
     public GameObject target;
     public Animator anim;
     private AIMode mode = AIMode.Follow; // Mostly used for UI
-    private float followOffset = 2.5f;
+    public float followOffset = 2.5f;
     private float jumpdistance = 5f;
-    private float lastOnGroundTime = 1;
+    private float lastOnGroundTime;
     public LayerMask groundLayer;
     public BoxCollider2D floorCollider;
 
@@ -43,7 +43,6 @@ public class Companion : MonoBehaviour
                 Move(Vector2.left);
                 GetComponent<SpriteRenderer>().flipX = true;
             }
-            anim.SetBool("Walking", true);
         }
     }
 
@@ -87,6 +86,7 @@ public class Companion : MonoBehaviour
             }
             else
             {
+                anim.SetBool("Walking", true);
                 rb.AddForce(new Vector2(moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
             }
         }
@@ -141,9 +141,10 @@ public class Companion : MonoBehaviour
 
     void Start()
     {
-        GameObject player = GameObject.FindWithTag("Player");
+        // GameObject player = GameObject.FindWithTag("Player");
         anim = GetComponent<Animator>();
-        target = player;
+        // target = player;
+        lastOnGroundTime = data.coyoteTime;
     }
 
     void Update()

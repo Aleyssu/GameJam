@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6710030898497436461}
   - component: {fileID: 6710030898497436450}
   - component: {fileID: 6710030898497436451}
-  - component: {fileID: 6710030898497436462}
   - component: {fileID: 6710030898497436460}
   - component: {fileID: 6710030898497436463}
   - component: {fileID: 6710030898497436457}
@@ -104,32 +103,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 8e55f1a99648ae54da1042c65f988c60, type: 2}
   rb: {fileID: 6710030898497436460}
-  player: {fileID: 0}
+  player: {fileID: 2528177791621953690, guid: 67c7050159414844b8925fd20082a997, type: 3}
   platform: {fileID: 0}
-  target: {fileID: 0}
+  target: {fileID: 2528177791621953690, guid: 67c7050159414844b8925fd20082a997, type: 3}
   anim: {fileID: 6710030898497436456}
+  followOffset: 0.025
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   floorCollider: {fileID: 6710030898497436457}
---- !u!114 &6710030898497436462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6710030898497436448}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 614aee29216332c4fa5c5652ef1a01ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 8e55f1a99648ae54da1042c65f988c60, type: 2}
-  rb: {fileID: 6710030898497436460}
-  floorCollider: {fileID: 6710030898497436457}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!50 &6710030898497436460
 Rigidbody2D:
   serializedVersion: 4
