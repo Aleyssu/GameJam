@@ -27,7 +27,7 @@ MonoBehaviour:
   coyoteTime: 0.1
   jumpBuffer: 0.07
   airAccelMult: 0.504
-  crouchedMovementMult: 0.5
+  crouchedMovementMult: 0.2
   crouchedHitboxMult: 0.4
   jumpSFX:
   - {fileID: 8300000, guid: b85d636ec799e7445989d54c0163f828, type: 3}

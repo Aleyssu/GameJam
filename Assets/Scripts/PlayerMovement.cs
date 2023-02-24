@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
 	private Vector2 crouchedHitbox;
 	private Vector2 originalOffset;
 	private Vector2 crouchedOffset;
+	private float runMaxSpeed;
 
 	// SFX
 	public AudioSource srcWalk;
@@ -42,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
 		crouchedHitbox = new Vector2(mainBodyCollider.size.x, mainBodyCollider.size.y * data.crouchedHitboxMult);
 		originalOffset = mainBodyCollider.offset;
 		crouchedOffset = new Vector2(mainBodyCollider.offset.x, mainBodyCollider.offset.y - mainBodyCollider.size.y * (1 - data.crouchedHitboxMult) / 2);
+		runMaxSpeed = data.runMaxSpeed;
 	}
 
 	private void Update()
@@ -67,18 +69,22 @@ public class PlayerMovement : MonoBehaviour
 
 		// Crouching
 		if(Input.GetAxisRaw("Vertical") < 0) {
-			anim.SetBool("Crouched", true);
-			isCrouching = true;
-			mainBodyCollider.size = crouchedHitbox;
-			mainBodyCollider.offset = crouchedOffset;
-			movementMult = data.crouchedMovementMult;
+			if(!isCrouching) {
+				anim.SetBool("Crouched", true);
+				isCrouching = true;
+				mainBodyCollider.size = crouchedHitbox;
+				mainBodyCollider.offset = crouchedOffset;
+				movementMult = data.crouchedMovementMult;
+				runMaxSpeed = data.runMaxSpeed * data.crouchedMovementMult;
+			}
 		}
-		else {
+		else if(isCrouching) {
 			anim.SetBool("Crouched", false);
 			isCrouching = false;
 			mainBodyCollider.size = originalHitbox;
 			mainBodyCollider.offset = originalOffset;
 			movementMult = 1;
+			runMaxSpeed = data.runMaxSpeed;
 		}
 
 		// Check for jump input
@@ -163,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		// Reduce speed when past the limit and running on ground (bhopping will preserve momentum)
-		if(Mathf.Abs(rb.velocity.x) > data.runMaxSpeed && lastOnGroundTime == 0) {
+		if(Mathf.Abs(rb.velocity.x) > runMaxSpeed && lastOnGroundTime == 0) {
 			Debug.Log(new Vector2(-moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 			rb.AddForce(new Vector2(-moveInput.x * data.runForce * Mathf.Abs(data.runMaxSpeed * moveInput.x - rb.velocity.x), 0));
 		}
