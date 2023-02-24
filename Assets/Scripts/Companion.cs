@@ -176,12 +176,24 @@ public class Companion : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.GetComponent<Platform>() != null)
+        if (col.gameObject.GetComponent<Platform>() == true)
         {
-            platform = col.gameObject.GetComponent<Platform>();
+            platform = gameObject.GetComponent<Platform>();
             if (mode == AIMode.Hunt)
             {
                 DetectEnemy();
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D col)
+    {
+        if (col.gameObject.GetComponent<Platform>() == true)
+        {
+            platform = null;
+            if (mode == AIMode.Hunt)
+            {
+                target = null;
             }
         }
     }

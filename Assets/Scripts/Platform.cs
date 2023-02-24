@@ -8,13 +8,13 @@ public class Platform : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Enemy")
+        if (col.gameObject.tag == "Entity")
         {
             objectStanding.Add(col.gameObject);
         }
     }
 
-    void OnCollisionExit2D(Collision2D col)
+    private void OnCollisionExit2D(Collision2D col)
     {
         for (int i = 0; i < objectStanding.Count; i++)
         {
