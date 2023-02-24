@@ -9,8 +9,10 @@ using UnityEngine.UI;
 public class Play : MonoBehaviour
 {
     public Transition levelLoad;
+    public AudioSource src;
     public void OnButtonPressed()
     {
         levelLoad.load = true;
+        src.Play();
     }
 }
