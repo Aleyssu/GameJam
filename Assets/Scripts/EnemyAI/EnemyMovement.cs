@@ -153,12 +153,12 @@ public class EnemyMovement : MonoBehaviour
         if (curDir == 1)
         {
             lastDir = 1;
-            return new Vector2(Random.Range(transform.position.x + 2f, endOfPlatformRight.position.x), transform.position.y);
+            return new Vector2(Random.Range(transform.position.x + 4f, endOfPlatformRight.position.x), transform.position.y);
         }
         else
         {
             lastDir = -1;
-            return new Vector2(Random.Range(endOfPlatformLeft.position.x, transform.position.x - 2f), transform.position.y);
+            return new Vector2(Random.Range(endOfPlatformLeft.position.x, transform.position.x - 4f), transform.position.y);
         }
         
     }
