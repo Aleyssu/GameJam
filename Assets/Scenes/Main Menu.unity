@@ -804,7 +804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   load: 0
-  next: SampleScene
+  next: Level 1
   transitionDelayTime: 1
 --- !u!1 &1287415877
 GameObject:
