@@ -217,7 +217,9 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	public void walkSFX() {
-		srcWalk.clip = data.walkSFX[Random.Range(0, data.walkSFX.Length)];
-		srcWalk.Play();
+		if(isGrounded()) {
+			srcWalk.clip = data.walkSFX[Random.Range(0, data.walkSFX.Length)];
+			srcWalk.Play();
+		}
 	}
 }
