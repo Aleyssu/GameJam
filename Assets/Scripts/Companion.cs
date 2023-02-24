@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -137,6 +138,11 @@ public class Companion : MonoBehaviour
     public void Attack(Vector2 dir)
     {
         anim.SetTrigger("Attack");
+        // Make sure the Companion is facing the right way
+        if ((GetComponent<SpriteRenderer>().flipY && dir == Vector2.right) || (!GetComponent<SpriteRenderer>().flipY && dir == Vector2.left))
+        {
+            GetComponent<SpriteRenderer>().flipY ^= true;
+        }
     }
 
     void Start()
@@ -176,7 +182,7 @@ public class Companion : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.GetComponent<Platform>() != null)
+        if (col.gameObject.GetComponent<Platform>() == true)
         {
             platform = col.gameObject.GetComponent<Platform>();
             if (mode == AIMode.Hunt)
