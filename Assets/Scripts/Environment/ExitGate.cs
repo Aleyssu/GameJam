@@ -4,32 +4,39 @@ using UnityEngine;
 
 public class ExitGate : MonoBehaviour
 {
-    private bool playerAtExit = false;
-    private bool companionAtExit = false;
+    public bool playerAtExit = false;
+    public bool companionAtExit = false;
     public Transition transition;
     public string nextLevel;
     private void Start()
     {
         transition = GameObject.Find("Transition").GetComponent<Transition>();
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             playerAtExit = true;
         }
-        else
+        if (collision.gameObject.tag == "Companion")
+        {
+            companionAtExit = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
         {
             playerAtExit = false;
         }
         if (collision.gameObject.tag == "Companion")
         {
-            companionAtExit = true;
-        }
-        else
-        {
             companionAtExit = false;
         }
+    }
+    private void Update()
+    {
         if (playerAtExit && companionAtExit)
         {
             transition.next = nextLevel;
