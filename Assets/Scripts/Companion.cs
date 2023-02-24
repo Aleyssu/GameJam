@@ -20,7 +20,7 @@ public class Companion : MonoBehaviour
     public Platform platform;
     public GameObject target;
     public Animator anim;
-    private AIMode mode = AIMode.Follow; // Mostly used for UI
+    public AIMode mode = AIMode.Follow; // Mostly used for UI
     public float followOffset = 2.5f;
     private float jumpdistance = 5f;
     private float lastOnGroundTime;
@@ -49,7 +49,7 @@ public class Companion : MonoBehaviour
         }
     }
 
-    private void DetectEnemy()
+    public void DetectEnemy()
     {
         if (platform.objectStanding.Count != 0)
         {
