@@ -159,9 +159,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  srcWalk: {fileID: 0}
-  srcJump: {fileID: 0}
-  srcLand: {fileID: 0}
 --- !u!61 &2528177791621953682
 BoxCollider2D:
   m_ObjectHideFlags: 0
