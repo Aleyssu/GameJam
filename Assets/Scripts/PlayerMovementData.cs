@@ -28,8 +28,8 @@ public class PlayerMovementData : ScriptableObject
 	public float crouchedHitboxMult = 0.5f;
 	
 	[Header("SFX")]
-	public AudioClip jumpSFX;
-    public AudioClip jumpBoostSFX;
-	public AudioClip landSFX;
-	public AudioClip walkSFX;
+	public AudioClip[] jumpSFX;
+    public AudioClip[] jumpBoostSFX;
+	public AudioClip[] landSFX;
+	public AudioClip[] walkSFX;
 }
