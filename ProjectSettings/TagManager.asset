@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - JumpPoint
+  - Companion
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Companion
   - 
   - 
-  - 
+  - Enemy
   - 
   - 
   - 

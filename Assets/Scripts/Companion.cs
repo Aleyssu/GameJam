@@ -27,6 +27,8 @@ public class Companion : MonoBehaviour
     public LayerMask groundLayer;
     public BoxCollider2D floorCollider;
 
+    public bool isAttacking = false;
+
 
     private void MoveTowards()
     {
@@ -137,7 +139,6 @@ public class Companion : MonoBehaviour
 
     public void Attack(Vector2 dir)
     {
-        anim.SetTrigger("Attack");
         // Make sure the Companion is facing the right way
         if ((GetComponent<SpriteRenderer>().flipY && dir == Vector2.right) || (!GetComponent<SpriteRenderer>().flipY && dir == Vector2.left))
         {
@@ -173,7 +174,7 @@ public class Companion : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (target != null)
+        if (target != null && !isAttacking)
         {
             // Move towards target when possible
             MoveTowards();
