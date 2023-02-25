@@ -109,11 +109,8 @@ public class Companion : MonoBehaviour
 
     public void Jump()
     {
-        if (lastOnGroundTime < data.coyoteTime)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity);
-            lastOnGroundTime = data.coyoteTime;
-        }
+        rb.velocity = new Vector2(rb.velocity.x, data.jumpVelocity);
+        lastOnGroundTime = data.coyoteTime;
     }
 
     void OnStay(InputValue value)
@@ -191,10 +188,16 @@ public class Companion : MonoBehaviour
                 DetectEnemy();
             }
         }
-        if (col.gameObject.tag == "JumpPoint")
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "JumpPoint")
         {
+            Debug.Log("Jump");
             if (target.transform.position.y > transform.position.y)
             {
+                Debug.Log("Jump");
                 Jump();
             }
         }
