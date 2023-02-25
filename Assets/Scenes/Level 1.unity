@@ -232,6 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6fd47692f01d3459ea4136d2fd6f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAtExit: 0
+  companionAtExit: 0
   transition: {fileID: 0}
   nextLevel: Level 2
 --- !u!61 &62158501
@@ -590,7 +592,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.9, y: -3}
+  m_AnchoredPosition: {x: -0.0000014305115, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &306135228
@@ -753,7 +755,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton_Unarmed
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1322898962, guid: a8747434eb7c63547972eec2170c9e0e, type: 3}
+    - {fileID: 1302902848226467924, guid: a8747434eb7c63547972eec2170c9e0e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a8747434eb7c63547972eec2170c9e0e, type: 3}
 --- !u!1001 &430136603
 PrefabInstance:
@@ -11624,7 +11628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1033232470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14209,7 +14213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1813886428
 RectTransform:
   m_ObjectHideFlags: 0

@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 495999498}
   m_Layer: 5
   m_Name: Hearts
-  m_TagString: Untagged
+  m_TagString: Health
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1567,7 +1567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4865478120914021727, guid: f90807bccbac4e346bc7b1b577ca4f51, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f90807bccbac4e346bc7b1b577ca4f51, type: 3}
@@ -12258,7 +12258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 486893158115878546, guid: 95a071f6b128d2f4c89c15ba0e44f4a1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 486893158115878558, guid: 95a071f6b128d2f4c89c15ba0e44f4a1, type: 3}
       propertyPath: m_Pivot.x

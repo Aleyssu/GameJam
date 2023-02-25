@@ -56,6 +56,7 @@ public class HeartsVisual : MonoBehaviour
     private void Awake()
     {
         heartImageList = new List<HeartImage>();
+        gameOver.gameObject.SetActive(false);
     }
 
     private void Start()
@@ -96,7 +97,7 @@ public class HeartsVisual : MonoBehaviour
 
     private void Health_OnDead(object sender, System.EventArgs e)
     {
-        gameOver.enabled = true;
+        gameOver.gameObject.SetActive(true);
         StartCoroutine(Restart("Main Menu"));
         Debug.Log("dead");
     }
