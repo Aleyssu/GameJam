@@ -1,0 +1,14 @@
+List of small (and maybe difficult) changes to polish the game
+  1) Allow player and companion to move through each other
+  2) Rework the jump boost to be the following
+    a) when player is at the companions upper body, player can press jump to initate jump boost animation
+    b) play the jump boost animation
+    c) when done, the player gets launched upwards at the greater velocity
+  3) More environmental stuff (for example, hold down button and moving platform). This will justify having a stay command.
+  4) Enemies with projectiles (Annoying enemy location will require having to press hunt)
+  5) Upgrade the companion AI
+    a) Create path-finding algorithm
+    b) Optionally, create nav-mesh generator
+    c) Enemy detection now requires a separate camera with camera follow script for the companion.
+    d) Movement uses path-finding instead of checking position without taking into consideration of terrain
+  6) Restart button
