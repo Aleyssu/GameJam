@@ -12,3 +12,4 @@ List of small (and maybe difficult) changes to polish the game
     c) Enemy detection now requires a separate camera with camera follow script for the companion.
     d) Movement uses path-finding instead of checking position without taking into consideration of terrain
   6) Restart button
+  7) Add exit gate sprite and animation
